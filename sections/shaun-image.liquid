@@ -1,0 +1,66 @@
+{% include 'include-featured-text' %}
+<a href="{{ section.settings.button_link }}" class="heretic-link"><img src="{{ 'white-arrow-right.png' | asset_url }}"></a>
+
+{% schema %}
+  {
+    "name": "Shaun Ross Image",
+    "class": "headline-section featured-content-section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image",
+        "info": "600 x 600px recommended"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Talk about your brand"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Link"
+      },
+      {
+        "type": "select",
+        "id": "text_size",
+        "label": "Text size",
+        "options": [
+          {
+            "value": "regular_text",
+            "label": "Regular"
+          },
+          {
+            "value": "featured_text",
+            "label": "Large"
+          }
+        ],
+        "default": "featured_text"
+      },
+      {
+        "type": "select",
+        "id": "text_alignment",
+        "label": "Text alignment",
+        "options": [
+          {
+            "value": "align_left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          }
+        ],
+        "default": "center"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Shaun Ross Image",
+        "category": "Text"
+      }
+    ]
+  }
+{% endschema %}

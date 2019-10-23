@@ -1,0 +1,229 @@
+<div class="container main content main-wrapper">
+  <div class="section clearfix">
+    <div class="sixteen columns breadcrumb">
+      <div class="eight columns breadcrumb--text alpha" itemscope itemtype="http://schema.org/BreadcrumbList">
+        <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="item" class="breadcrumb_link"><span itemprop="name">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+          &nbsp;<span>/</span>&nbsp;
+          {{ 'layout.general.cart' | t }}
+      </div>
+    </div>
+  </div>
+
+  {% if cart.item_count == 0 %}
+    <div class="sixteen columns">
+      <div class="section clearfix">
+        <p class="quote">{{ 'cart.general.continue_browsing_html' | t }}</p>
+      </div>
+    </div>
+  {% else %}
+    <form action="/cart" method="post" id="cart_form">
+      <div class="section clearfix">
+        <div class="ten columns cart_items">
+          <h4 class="title">YOUR CART</h4>
+
+          {% for item in cart.items %}
+          	<div class="cart_item_parent_group">
+            <div class="five columns alpha">
+              <a href="{{ item.url }}" title="{{ item.title | escape }}" class="cart_page_image">
+                <img  src="{{ item | img_url: '300x' }}"
+                      alt="{{ item.title | escape }}"
+                      class="lazyload lazyload--fade-in"
+                      style="max-width: {{- item.image.width -}}px"
+                      data-sizes="auto"
+                      data-src="{{ item | img_url: '900x' }}"
+                      data-srcset=" {{ item | img_url: '2048x' }} 2048w,
+                                    {{ item | img_url: '1600x' }} 1600w,
+                                    {{ item | img_url: '1200x' }} 1200w,
+                                    {{ item | img_url: '1000x' }} 1000w,
+                                    {{ item | img_url: '800x' }} 800w,
+                                    {{ item | img_url: '600x' }} 600w,
+                                    {{ item | img_url: '400x' }} 400w"
+                       />
+              </a>
+            </div>
+
+            <div class="five columns omega">
+              <p>
+                <span class="cart_product_title">
+                <a href="{{ item.url }}">
+                  {{ item.product.title }}
+                </a>
+                </span>
+                <span class="remove_item">
+                	<a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" title="{{ 'cart.general.remove' | t }}"><!--{{ 'cart.general.remove' | t }}--> <img src="https://cdn.shopify.com/s/files/1/0158/2484/6912/files/close_ico.svg?12656" class="cart_close"></a>
+              	</span>
+              </p>
+              {% unless item.product.has_only_default_variant or item.variant.title contains "Title" %}
+                <p class="meta">
+                  {% for option in item.product.options %}
+                    {% unless option contains "Title" %}
+                        <span class="label">{{ option }}:</span> <span>{{ item.variant.options[forloop.index0] }}</span><br />
+                    {% endunless %}
+                  {% endfor %}
+                </p>
+              {% endunless %}
+
+              {% if item.properties %}
+                <p>
+                  {% for p in item.properties %}
+                    {% unless p.last == blank %}
+                      {% if p.last contains '/uploads/' %}
+                        {{ p.first }}: <a class="lightbox" href="{{ p.last }}">{{ 'cart.general.uploaded_file' | t }}</a><br />
+                      {% else %}
+                        {{ p.first }}: {{ p.last }}<br />
+                      {% endif %}
+                    {% endunless %}
+                  {% endfor %}
+                </p>
+              {% endif %}
+
+             <!-- <p class="price_total">-->
+                <!-- <strong>{{ 'cart.general.price_per_item' | t }}:</strong>
+{% if item.line_level_discount_allocations.size > 0 %}
+                  <span class="money">
+                    {{ item.final_price | money }}
+                  </span>
+                {% endif %}
+                <span class="money {% if item.line_level_discount_allocations.size > 0 %}was_price{% endif %}">
+                  {{ item.original_price | money }}
+                </span>
+-->
+
+              <!-- </p>-->
+
+              <p id="quantity_{{ forloop.index }}" class="quantity_sect_items clearfix">
+                <span class="quatity_increase_decrease">
+                <label for="updates_{{ item.id }}" class="quantity_label">{{ 'cart.general.quantity' | t }}:</label>
+                  <i class="fa fa-minus"></i>
+                    <input type="number" min="0" size="3" maxlength="3" class="quantity" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" data-line-id="{{ forloop.index }}" {% if settings.limit_quantity and item.variant.inventory_management != blank and item.variant.inventory_quantity > 0 and item.variant.inventory_policy == "deny" %}max="{{ item.variant.inventory_quantity }}"{% endif %} />
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </span>
+                {% if item.line_level_discount_allocations.size > 0 %}
+                  <span class="money">
+                    {{ item.final_line_price | money }}
+                  </span>
+                {% endif %}
+                <span class="money {% if item.line_level_discount_allocations.size > 0 %} hidden {% endif %}">
+                  {{ item.original_line_price | money }}
+                </span>
+              </p>
+
+              {% if item.line_level_discount_allocations.size > 0 %}
+                {% for discount_allocation in item.line_level_discount_allocations %}
+                  <p class ="applied_discount">
+                    <strong>{{ 'cart.general.discount' | t }}:</strong> {{ discount_allocation.discount_application.title }} (- <span class="money">{{ discount_allocation.amount | money }}</span>)
+                  </p>
+                {% endfor %}
+              {% endif %}
+
+             <!-- <p class="price_total">
+                <strong>{{ 'cart.general.total' | t }}:</strong>
+
+              </p>-->
+
+
+            </div>
+              <br class="clear" />
+            <br class="clear" />
+          </div>
+
+          {% endfor %}
+          <div class="show_all_cart_continue">
+          {% if cart.item_count > 0 and section.settings.display_continue_shopping %}
+            <p class="continue_shopping">
+              <a href="{% if cart.items.first.product.collections != blank %}{{ cart.items.first.product.collections.last.url }}{% else %}/collections/all{% endif %}"><span class="arrow_rotate"><img src="https://cdn.shopify.com/s/files/1/0158/2484/6912/files/arrow_left.svg?12656" /></span>Continue Shopping</a>
+            </p>
+          {% endif %}
+          </div>
+        </div>
+
+        <div class="five columns offset-by-one">
+          <div class="cart_total_detal">
+
+          {% if cart.cart_level_discount_applications != blank %}
+           <h4 class="discount">
+             {{ 'cart.general.discount' | t }}
+           </h4>
+
+           {% for discount_application in cart.cart_level_discount_applications %}
+             <p>
+               {{ discount_application.title }} (- <span class="money">{{ discount_application.total_allocated_amount | money }}</span>)
+             </p>
+           {% endfor %}
+         {% endif %}
+		  <h4 class="subtotal_heading">
+            Summary
+          </h4>
+
+          <div class="subtotal_area">
+            <span  class="subtotal">{{ 'cart.general.subtotal' | t }}</span>
+            <span  class="subtotal_amount"><strong><span class="money">{{ cart.total_price | money }}</span></strong></span>
+          </div>
+
+          <p class="subtotal_amount">
+            <small class="excluding_tax"><em>{{ 'cart.general.excluding_tax_shipping' | t }}</em></small>
+          </p>
+
+          {% if settings.show_multiple_currencies %}
+            <p>
+              <small>
+                {{ 'cart.general.orders_processed_in_currency_html' | t: currency: shop.currency }}
+              </small>
+            </p>
+          {% endif %}
+
+          <!--{% if section.settings.display_special_instructions %}
+            <label for="cart-note">{{ 'cart.general.note' | t: shop_name: shop.name }}:</label>
+            <textarea id="cart-note" name="note" rows="2">{{ cart.note }}</textarea>
+          {% endif %}-->
+
+          {% if settings.display_tos_checkbox %}
+            <div class="tos_checkbox">
+              <input type="checkbox" class="tos_agree" id="cart_agree" required />
+              <label class="tos_label" for="cart_agree">
+                {{ settings.tos_richtext }}
+              </label>
+            </div>
+          {% endif %}
+
+          <p class="add-to-cart-wrap">
+            <input type="submit" class="action_button add_to_cart" id="checkout" name="checkout" value="{{ 'cart.general.checkout' | t }}" />
+          </p>
+
+          {% if content_for_additional_checkout_buttons %}
+            <div class="additional-checkout-buttons additional-checkout-buttons--vertical">
+              {{ content_for_additional_checkout_buttons }}
+            </div>
+          {% endif %}
+
+               <input type="submit" name="update"
+                class="update_cart cart__submit cart__submit--ajax-disabled cart__submit-control"
+                value="{{ 'cart.general.update' | t }}" style="display: none;">
+          </div>
+        </div>
+      </div>
+    </form>
+  {% endif %}
+</div>
+
+{% schema %}
+
+{
+  "name": "Cart page",
+  "class": "cart-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "display_continue_shopping",
+      "label": "Show \"continue shopping\" link",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "display_special_instructions",
+      "label": "Show \"note\" text box"
+    }
+  ]
+}
+
+{% endschema %}

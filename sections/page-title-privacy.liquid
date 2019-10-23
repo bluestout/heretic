@@ -1,0 +1,158 @@
+<!--Page Title Section Start-->
+
+{% if section.settings.banner_image != nil %}
+  {% assign feature_image = true %}
+{% endif %}
+
+{% if section.settings.banner_image != nil %}
+  <div id="slide-contact" class="parallax-banner featured-image--{{ feature_image }} parallax_effect--{{ section.settings.parallax_effect }}">
+    <div class="lazyload bcg"
+      {% if section.settings.parallax_effect %}
+        data-bottom-top="background-position: 50% 0px;"
+        data-top-bottom="background-position: 50% -200px;"
+        data-anchor-target="#slide-contact"
+        data-bgset="  {{ section.settings.banner_image | img_url: '2048x' }} 2048w,
+                      {{ section.settings.banner_image | img_url: '1600x' }} 1600w,
+                      {{ section.settings.banner_image | img_url: '1200x' }} 1200w,
+                      {{ section.settings.banner_image | img_url: '1000x' }} 1000w,
+                      {{ section.settings.banner_image | img_url: '800x' }} 800w,
+                      {{ section.settings.banner_image | img_url: '600x' }} 600w,
+                      {{ section.settings.banner_image | img_url: '400x' }} 400w"
+        data-sizes="100vw"
+      {% endif %}
+        >
+        <div class="hsContainer">
+          {% if section.settings.parallax_effect %}
+            <noscript>
+              <img   alt="{{ section.settings.banner_image.alt }}"
+                    src="{{ section.settings.banner_image | img_url: '2048x' }}"
+                    class="image__fallback"
+              />
+            </noscript>
+          {% endif %}
+          <img  src="{{ section.settings.banner_image | img_url: '300x' }}"
+                alt="{{ section.settings.banner_image.alt }}"
+                data-src="{{ section.settings.banner_image | img_url: '2048x' }}"
+                class="lazyload lazyload--fade-in hsContainer__image"
+                sizes="100vw"
+                srcset="  {{ section.settings.banner_image | img_url: '2048x' }} 2048w,
+                          {{ section.settings.banner_image | img_url: '1600x' }} 1600w,
+                          {{ section.settings.banner_image | img_url: '1200x' }} 1200w,
+                          {{ section.settings.banner_image | img_url: '1000x' }} 1000w,
+                          {{ section.settings.banner_image | img_url: '800x' }} 800w,
+                          {{ section.settings.banner_image | img_url: '600x' }} 600w,
+                          {{ section.settings.banner_image | img_url: '400x' }} 400w"
+          />
+          <div class="hsContent">
+            <div class="container">
+              <div class="columns {% if section.settings.contact_text_position == 'left' %} eight offset-by-one {% elsif section.settings.contact_text_position == 'right' %} eight offset-by-eight {% else %} twelve offset-by-two {% endif %} text-align--{{ section.settings.contact_text_alignment }}">
+                {% if section.settings.banner_title != blank %}
+                  <h1 class="headline">{{ section.settings.banner_title | escape }}</h1>
+                {% endif %}
+                {% if section.settings.subtitle != blank %}
+                  <div class="subtitle">
+                    {{ section.settings.subtitle }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+{% endif %}
+<!--Page Title Section End-->
+
+{% schema %}
+{
+  "name": "Page Title Image",
+  "class": "contact-template-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Image",
+      "info": "1600 x 1000px recommended"
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "Heading",
+      "default": "Get in touch"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subheading"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "contact_text_position",
+      "label": "Text position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "contact_text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Parallax"
+    },
+    {
+      "type": "checkbox",
+      "id": "parallax_effect",
+      "label": "Enable parallax scrolling",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "parallax_image_height",
+      "label": "Parallax section height",
+      "min": 300,
+      "max": 1000,
+      "step": 20,
+      "default": 400,
+      "unit": "px"
+    }
+  ]
+}
+{% endschema %}

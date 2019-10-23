@@ -1,0 +1,133 @@
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<div class="container content" style="padding-top:0"> 
+  <div class="row">
+    <div class="col-md-6">
+     	<div class="row">
+          <div class="col-md-4">
+             {% if section.settings.icon1 != blank %}
+            	<div class="iconss"><img src="{{ section.settings.icon1 | img_url }}"></div>
+             {% endif %}
+            {% if section.settings.title1 != blank %}
+            	<div class="ico-title">{{ section.settings.title1 }}</div>
+             {% endif %}
+          </div>
+           <div class="col-md-4">
+              {% if section.settings.icon2 != blank %}
+            	 <div class="iconss"><img src="{{ section.settings.icon2 | img_url }}"></div>
+              {% endif %}
+             {% if section.settings.title2 != blank %}
+             	<div class="ico-title">{{ section.settings.title2 }}</div>
+             {% endif %}
+          </div>
+           <div class="col-md-4">
+              {% if section.settings.icon3 != blank %}
+           		  <div class="iconss"><img src="{{ section.settings.icon3 | img_url }}"></div>
+            	 {% endif %}
+               {% if section.settings.title3 != blank %}
+            	 <div class="ico-title">{{ section.settings.title3 }}</div>
+               {% endif %}
+          </div>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+     <div class="col-md-5">
+       <div class="main-image"><img src="{{ section.settings.main_img |  img_url: '500x500' }}"></div>
+       <div class="main_btn"><a href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a></div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "All About",
+    "class": "allabout section_name_html",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "icon1",
+        "label": "Icon 1"
+      },
+	  {
+        "type": "image_picker",
+        "id": "icon2",
+        "label": "Icon 2"
+      },
+	  {
+        "type": "image_picker",
+        "id": "icon3",
+        "label": "Icon 3"
+      },
+	  {
+        "type": "image_picker",
+        "id": "main_img",
+        "label": "Main Image"
+      },
+      {
+        "type": "text",
+        "id": "title1",
+        "label": "Icon 1 Label",
+        "default": "Talk about your brand"
+      },
+      {
+        "type": "text",
+        "id": "title2",
+        "label": "Icon 2 Label",
+        "default": "Talk about your brand"
+      },
+      {
+        "type": "text",
+        "id": "title3",
+        "label": "Icon 3 Label",
+        "default": "Talk about your brand"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Link label"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Link"
+      },
+      {
+        "type": "select",
+        "id": "text_size",
+        "label": "Text size",
+        "options": [
+          {
+            "value": "regular_text",
+            "label": "Regular"
+          },
+          {
+            "value": "featured_text",
+            "label": "Large"
+          }
+        ],
+        "default": "featured_text"
+      },
+      {
+        "type": "select",
+        "id": "text_alignment",
+        "label": "Text alignment",
+        "options": [
+          {
+            "value": "align_left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          }
+        ],
+        "default": "center"
+      }
+    ],
+    "presets": [
+      {
+        "name": "All About",
+        "category": "Text"
+      }
+    ]
+  }
+{% endschema %}

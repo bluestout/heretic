@@ -1,0 +1,6 @@
+development:
+  password: 2351a344d6c5e6cbaf9d8ce7fd7b565e
+  theme_id: "73686351936"
+  store: heretic-parfum.myshopify.com
+  ignore_files:
+    - config/settings_data.json

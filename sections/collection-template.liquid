@@ -1,0 +1,549 @@
+{% if section.settings.featured_collection_image %}
+  {% assign feature_image = true %}
+  {% if collection.image %}
+    {% assign collection_image = collection.image %}
+  {% elsif section.settings.image != nil %}
+    {% assign collection_image = section.settings.image %}
+  {% else %}
+    {% assign collection_image = collection.products.first.featured_image %}
+  {% endif %}
+  <div id="slide-collection" class="parallax-banner featured-image--{{ feature_image }} parallax_effect--{{ section.settings.parallax_effect }}">
+    <div class="lazyload bcg"
+      {% if section.settings.parallax_effect %}
+        data-bottom-top="background-position: 50% 0px;"
+        data-top-bottom="background-position: 50% -200px;"
+        data-anchor-target="#slide-collection"
+        data-bgset="  {{ collection_image | img_url: '2048x' }} 2048w,
+                      {{ collection_image | img_url: '1600x' }} 1600w,
+                      {{ collection_image | img_url: '1200x' }} 1200w,
+                      {{ collection_image | img_url: '1000x' }} 1000w,
+                      {{ collection_image | img_url: '800x' }} 800w,
+                      {{ collection_image | img_url: '600x' }} 600w,
+                      {{ collection_image | img_url: '400x' }} 400w"
+        data-sizes="100vw"
+      {% endif %}
+        >
+        <div class="hsContainer">
+          {% if section.settings.parallax_effect %}
+            <noscript>
+             <img   alt="{{ collection_image.alt }}"
+                    src="{{ collection_image | img_url: '2048x' }}"
+                    class="image__fallback"
+                    />
+            </noscript>
+          {% endif %}
+          <img  src="{{ collection_image | img_url: '300x' }}"
+                alt="{{ collection_image.alt }}"
+                data-src="{{ collection_image | img_url: '2048x' }}"
+                class="lazyload lazyload--fade-in hsContainer__image"
+                sizes="100vw"
+                srcset="  {{ collection_image | img_url: '2048x' }} 2048w,
+                          {{ collection_image | img_url: '1600x' }} 1600w,
+                          {{ collection_image | img_url: '1200x' }} 1200w,
+                          {{ collection_image | img_url: '1000x' }} 1000w,
+                          {{ collection_image | img_url: '800x' }} 800w,
+                          {{ collection_image | img_url: '600x' }} 600w,
+                          {{ collection_image | img_url: '400x' }} 400w"
+                 />
+          <div class="hsContent">
+            <div class="container">
+              <div class="columns {% if section.settings.text_position == 'left' %} eight offset-by-one {% elsif section.settings.text_position == 'right' %} eight offset-by-eight {% else %} twelve offset-by-two {% endif %} align_{{ section.settings.text_alignment }}">
+                {% if section.settings.display_collection_header_title %}
+                  <h1 class="headline">
+                    {{ collection.title }}
+                  </h1>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="container main content main-wrapper">
+  {% paginate collection.products by section.settings.pagination_limit %}
+
+    {% if section.settings.display_collection_header_title and section.settings.featured_collection_image == blank %}
+      <div class="sixteen columns">
+        <h1 class="center">{{ collection.title }}</h1>
+        <div class="feature_divider"></div>
+      </div>
+    {% endif %}
+
+    <div class="section clearfix">
+      <div class="sixteen columns breadcrumb">
+        <div class="eight columns breadcrumb--text alpha" itemscope itemtype="http://schema.org/BreadcrumbList">
+          {% if section.settings.collection_breadcrumb %}
+            <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="item"><span itemprop="name">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+            &nbsp;<span class="icon-arrow-right"></span>
+            <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{{ collection.url }}" title="{{ collection.title | escape }}" itemprop="item"><span itemprop="name">{{ collection.title }}</span></a></span>
+            {% if current_tags %}
+              {% for tag in current_tags %}
+                &nbsp;<span class="icon-arrow-right"></span>
+                <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}" title="{{ tag | escape }}" itemprop="item"><span itemprop="name">{{ tag }}</span></a></span>
+              {% endfor %}
+            {% endif %}
+
+            {% if paginate.pages != 0 %}
+              &nbsp;<span class="icon-arrow-right"></span> {{ 'general.breadcrumbs.page' | t: current_page: paginate.current_page, pages: paginate.pages }}
+            {% endif %}
+          {% endif %}
+        </div>
+
+        {% if collection.handle != blank and collection.products_count > 0 %}
+          {% if section.settings.collection_tags %}
+            <div class="four columns section_select {% unless section.settings.collection_sort %}offset-by-four omega{% endunless %}">
+            {% for tag in collection.all_tags %}
+              {% if forloop.first %}
+                <label for="tag_filter" class="inline">{{ 'collections.sorting.filter' | t }}: </label>
+                <select name="tag_filter" id="tag_filter">
+                  <option {% unless current_tags %}selected="selected"{% endunless %} value="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}">{{ 'collections.general.all_collection_title' | t: title: collection.title }}</option>
+              {% endif %}
+
+              {% unless tag contains 'meta-' %}
+                <option {% if current_tags contains tag %}selected="selected"{% endif %} value="/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}">{{ tag }}</option>
+              {% endunless %}
+
+              {% if forloop.last %}
+                </select>
+              {% endif %}
+            {% endfor %}
+            </div>
+          {% endif %}
+
+         {% if section.settings.collection_sort %}
+            <div class="four columns section_select omega {% unless section.settings.collection_tags %}offset-by-four{% endunless %}">
+              <label for="sort-by" class="inline">{{ 'collections.sorting.title' | t }}: </label>
+              <select id="sort-by" data-default-sort="{{ collection.sort_by | default: collection.default_sort_by }}">
+                <option value="manual">{{ 'collections.sorting.featured' | t }}</option>
+                <option value="best-selling">{{ 'collections.sorting.best_selling' | t }}</option>
+                <option value="title-ascending">{{ 'collections.sorting.az' | t }}</option>
+                <option value="title-descending">{{ 'collections.sorting.za' | t }}</option>
+                <option value="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</option>
+                <option value="price-descending">{{ 'collections.sorting.price_descending' | t }}</option>
+                <option value="created-descending">{{ 'collections.sorting.date_descending' | t }}</option>
+                <option value="created-ascending">{{ 'collections.sorting.date_ascending' | t }}</option>
+              </select>
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+
+
+
+  {% comment %}Check to see if sidebar should be enabled{% endcomment %}
+    {% if section.blocks.size > 0 %}
+      {% assign sidebar = true %}
+    {% else %}
+      {% assign sidebar = false %}
+    {% endif %}
+
+    {% if sidebar %}
+      {% include 'sidebar' %}
+      <div class="twelve columns">
+    {% else %}
+      <div class="sixteen columns">
+    {% endif %}
+
+      {% if collection.description != blank %}
+        <div class="section clearfix collection_description">
+          {{ collection.description }}
+        </div>
+      {% endif %}
+
+      {% if collection.products.size == 0 %}
+        <div class="section clearfix">
+          <p class="quote">{{ 'collections.general.no_matches' | t }}</p>
+        </div>
+      {% else %}
+        {% assign products = collection.products %}
+        {% assign products_per_row = section.settings.products_per_row %}
+        {% include 'product-loop', sidebar: sidebar, limit: section.settings.pagination_limit %}
+      {% endif %}
+
+      {% include 'pagination' with sidebar %}
+    </div>
+       <!-- {% for product_type in collection.all_types %}
+        {% if product_type == blank %}{% continue %}{% endif %}
+        <h2 class="candle_status_force" id="{{ product_type.id }}">{{ product_type | link_to_type }}</h2>
+        {% endfor %}-->
+
+
+{% if section.settings.bt_collection  %}
+  {%- for collection in collections -%}
+
+          {% if collection.title == "Candle" %}
+          {% assign product_collections = collection.title %}
+          <h2 class="candle_status_force" id="{{ collection.id }}"><a href="{{ collection.url }}">
+          {{ collection.title }}
+          </a>
+          </h2>
+          {% for product in products %}
+          {% if product.type==product_collections %}
+        	<div class="candle-collection-wrapper">
+              <a href="{{ product.url }}"><img src="{{product.featured_image | product_img_url: '500x'}}"></a>
+            </div>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+
+  {%- endfor -%}
+{% endif %}
+
+  {% endpaginate %}
+      {% comment %}
+      {% endcomment %}
+        <div class="coll_filter">
+                <div class="container">
+                  <div class="sixteen columns">
+                    <div class="eight alpha column columns ">
+
+                          <div class="filter_by_notes">
+                            <ul class="coll-filter subnav clearfix">
+                              <li><h2>FILTER BY NOTES</h2></li>
+                              {% for tag in collection.all_tags %}
+                              {% if current_tags contains tag %}
+                              <li data-value="{{ tag | handle }}" class="list_t tag_{{ tag | handle }} selected">
+                                 <span>{{ tag }}</span>
+                              </li>
+                              {% else %}
+                              <li class="list_t tag_{{ tag | handle }}" data-value="{{ tag | handle }}">
+                                 <span>{{ tag }}</span>
+                              </li>
+                              {% endif %}
+                              {% endfor %}
+                            </ul>
+                            <div class="btn_apply"><span class="apply_btn_filter">APPLY</span></div>
+
+                          </div>
+                       <div class="filter_notes">
+                     	 <span class="show_notes">Notes <i class="fa fa-angle-down"></i></span>
+                          <span class="small--hide list_s_notes">
+                             <ul class="selected_list">
+
+                                        {% assign sc = 0 %}
+                                  {% for tag in collection.all_tags %}
+                                      {% if current_tags contains tag %}
+                                        {% assign sc = sc| plus:1  %}
+                                      <li data-value="{{ tag | handle }}" class="selected_tag">
+                                         <span>{{ tag }} <img width="10px" src="https://cdn.shopify.com/s/files/1/0158/2484/6912/files/close_ico.svg?14293" /></span>
+                                      </li>
+                                      {% endif %}
+                                  {% endfor %}
+                                </ul>
+                          </span>
+                         <span class="selected_count medium-up--hide">{{sc}} selected</span>
+                       </div>
+                    </div>
+                    <div class="eight alpha column columns ">
+                      <ul class="inline_links">
+                        <li><a href="">Dirty</a></li>
+                        <li><a href="">Accords</a></li>
+                      </ul>
+                    </div>
+                  </div>
+              </div>
+        </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $('.coll-filter span').click(function(){
+    $(this).parent('li').toggleClass('selected');
+  });
+
+  $('.selected_tag span').click(function(){
+    var sdv = $(this).parent('li').data('value');
+    $('.tag_'+sdv).removeClass('selected');
+     $('.apply_btn_filter').trigger('click');
+  });
+
+  $('.show_notes').click(function(){
+    $('.filter_by_notes').toggle();
+    if ($('.filter_by_notes').css('display') == 'block') {
+      $('.show_notes i').removeClass('fa-angle-down').addClass('fa-angle-up');
+    } else {
+      $('.show_notes i').removeClass('fa-angle-up').addClass('fa-angle-down');
+    }
+  });
+var collFilters = jQuery('.coll-filter li');
+  $('.apply_btn_filter').click(function() {
+    var newTags = [];
+    collFilters.each(function() {
+     if ($(this).hasClass("selected")) {
+        newTags.push(jQuery(this).data('value'));
+      }
+    });
+    console.log(newTags);
+
+    if (newTags.length) {
+      var query = newTags.join('+');
+      var href_Atr = $('{{ "tag" | link_to_tag: "tag" }}').attr('href');
+      window.location.href = href_Atr.replace('/' + 'tag', '/' + query);
+
+    }
+    else {
+      {% if collection.handle %}
+      window.location.href = '/collections/{{ collection.handle }}';
+      {% elsif collection.products.first.type == collection.title %}
+      window.location.href = '{{ collection.title | url_for_type }}';
+      {% elsif collection.products.first.vendor == collection.title %}
+      window.location.href = '{{ collection.title | url_for_vendor }}';
+      {% endif %}
+    }
+  });
+});
+      </script>
+<style>
+
+  ul.selected_list li span img{float: right;position: relative;top: 9px;}
+  ul.selected_list li span {background: #F4F4F4;cursor:pointer;min-width: 70px;display: inline-block;text-align: left;padding: 0px 10px;}
+  .coll_filter .sixteen.columns {display: flex;justify-content: center;align-items: center;}
+  ul.selected_list li span img{padding-left:10px;}
+  li.list_t {width: 32%; float: left;}
+  li.list_t span {cursor:pointer;font-weight: lighter;font-size: 12px;letter-spacing: 0.5px;font-family: 'styrene-thin';line-height: 1.3;}
+  .btn_apply{background:#fff;padding-bottom:20px;}
+  li.list_t.selected span {opacity: 0.4;}
+  ul.coll-filter li h2 {font-size: 13px;color: #1E252C;font-family: styrene-reg;text-align: center;display: block;}
+  ul.coll-filter.subnav.clearfix {background: #fff;margin: 0px;margin:30px ;}
+  ul.selected_list {margin: 0px 0px 0px 10px;display: inline-block;}
+  ul.selected_list li {list-style: none;display: inline-block;margin: 0px 5px;}
+  .show_notes{cursor:pointer;font-family:'styrene-bold'; font-size:14px;text-transform: uppercase;}
+  .show_notes i { font-size: 20px; font-weight: bold; top: 2px; position: relative; }
+  .inline_links{display:block;margin:0px;text-align:right}
+  .coll_filter .inline_links li{display:inline-block;list-style-type:none;margin-right: -6px;padding:10px 0px;margin-bottom:0px;}
+  .coll_filter .inline_links li a {border: 2px solid #000;width: 180px;color: #030303;font-family:'styrene-reg';text-transform: uppercase;font-size: 18px;letter-spacing: 2px; line-height: 48px;display: inline-block;text-align: center;}
+  .coll_filter {background: #FFF;display: block;width: 100%;position: fixed;bottom: 0px;left: 0px;z-index:10001;}
+  .filter_by_notes {display:none;background:#fff;padding:0px;text-align: center;position: absolute;left: 0px;top: auto;bottom: 100%;width: 350px;max-width:100%;box-shadow: 0px 1px 11px rgba(0,0,0,0.2);}
+  .apply_btn_filter{cursor:pointer;border: 2px solid #000;width: 130px;color: #030303;font-family:'styrene-reg';text-transform: uppercase;font-size: 18px;letter-spacing: 2px; line-height: 40px;display: inline-block;text-align: center;}
+  .filter_by_notes ul.subnav {list-style-type: none;}
+  .filter_by_notes ul.subnav a {font-size: 12px!important;}
+
+
+
+  {% if section.settings.parallax_effect %}
+    #slide-collection .hsContainer {
+      height: {{ section.settings.parallax_image_height }}px;
+    }
+    @media only screen and (max-width: 798px) {
+      #slide-collection .hsContainer {
+        height: auto;
+      }
+    }
+  {% endif %}
+
+</style>
+
+{% schema %}
+
+{
+  "name": "Collection",
+  "class": "collection-template-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "display_collection_header_title",
+      "label": "Show collection title"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_breadcrumb",
+      "label": "Show breadcrumb links",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_sort",
+      "label": "Show collection filter"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_tags",
+      "label": "Show tag filter"
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "label": "Products per row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "pagination_limit",
+      "label": "Products per page",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Banner image"
+    },
+    {
+      "type": "checkbox",
+      "id": "featured_collection_image",
+      "label": "Show featured collection image",
+      "info": "The collection's featured image will be used as a banner image. Optionally upload a banner image as a fallback."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner image",
+      "info": "1600 x 1000px recommended"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Parallax"
+    },
+    {
+      "type": "checkbox",
+      "id": "parallax_effect",
+      "label": "Enable parallax scrolling",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "parallax_image_height",
+      "label": "Parallax section height",
+      "min": 300,
+      "max": 1000,
+      "step": 20,
+      "default": 400,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "paragraph",
+      "content": "Create a sidebar by adding content blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle",
+      "label": "Toggle sidebar content",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bt_collection",
+      "label": "Show Bottom Producs",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter_by_collection",
+      "name": "Collection list",
+      "limit": 1
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "custom_menu_linklist",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "settings": [
+        {
+          "type": "page",
+          "id": "content_page",
+          "label": "Page"
+        }
+      ]
+    },
+    {
+      "type": "filter_by_tag",
+      "name": "Tag list",
+      "limit": 1
+    },
+     {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Text area can be used for special announcements or general information.</p>"
+        }
+      ]
+    },
+    {
+      "type": "filter_by_type",
+      "name": "Type list",
+      "limit": 1
+    },
+    {
+      "type": "filter_by_vendor",
+      "name": "Vendor list",
+      "limit": 1
+    }
+  ]
+}
+
+{% endschema %}

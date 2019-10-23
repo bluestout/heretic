@@ -1,0 +1,123 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-4 desc relative" style="background-color: #000;">
+       {% if section.settings.box1 != blank %}
+       	<div class="box1"><img src="{{ section.settings.box1 | img_url: "large" }}"></div>
+       {% endif %}
+       {% if section.settings.content1 != blank %}
+      	 <div class="box-desc ">
+           <div class="item active">
+             {{ section.settings.content1 }}
+           </div>
+           <div class="item normal">
+             {{ section.settings.content2 }}
+           </div>
+         </div>
+         <span class="right_bottom_btn">
+           <a href="#">
+             <img src="{{ 'right.jpg' | asset_url }}" >
+           </a>
+         </span>
+       {% endif %}
+    </div>
+
+    <div class="col-md-4">
+       {% if section.settings.box2 != blank %}
+       	<div class="box2"><img src="{{ section.settings.box2 | img_url: "large" }}"></div>
+       {% endif %}
+
+      <div class="title-wraper">
+        {% if section.settings.title2 != blank %}
+           <div class="box-title">{{ section.settings.title2 }}</div>
+         {% endif %}
+        {% if section.settings.subtitle != blank %}
+           <div class="box-subtitle">{{ section.settings.subtitle }}</div>
+         {% endif %}
+      </div>
+    </div>
+
+    <div class="col-md-4">
+       {% if section.settings.box3 != blank %}
+       	<div class="box3"><img src="{{ section.settings.box3 | img_url: "large" }}"></div>
+       {% endif %}
+
+      <div class="title-wraper">
+        {% if section.settings.title3 != blank %}
+           <div class="box-title">{{ section.settings.title3 }}</div>
+         {% endif %}
+          {% if section.settings.subtitle2 != blank %}
+           <div class="box-subtitle">{{ section.settings.subtitle2 }}</div>
+         {% endif %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Product Custom",
+    "class": "procustom",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "box1",
+        "label": "Box Image 1"
+      },
+	  {
+        "type": "textarea",
+        "id": "content1",
+        "label": "Content 1",
+        "default": "<p>Talk about your brand</p>"
+      },
+      {
+          "type": "textarea",
+          "id": "content2",
+          "label": "Content 2",
+          "default": "<p>Talk about your brand</p>"
+        },
+	  {
+        "type": "image_picker",
+        "id": "box2",
+        "label": "Box Image 2"
+      },
+	  {
+        "type": "text",
+        "id": "title2",
+        "label": "Title 2",
+        "default": "Talk about your brand"
+      },
+	  {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle",
+        "default": "Subtitle"
+      },
+	  {
+        "type": "image_picker",
+        "id": "box3",
+        "label": "Box Image 3"
+      },
+      {
+        "type": "text",
+        "id": "title3",
+        "label": "Title 3",
+        "default": "Talk about your brand"
+      },
+	  {
+        "type": "text",
+        "id": "subtitle2",
+        "label": "Subtitle",
+        "default": "Subtitle"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Product Custom",
+        "category": "Text"
+      }
+    ]
+  }
+{% endschema %}
