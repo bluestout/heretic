@@ -1,11 +1,16 @@
 {% include 'include-beton-image' %}
-<a href="{{ section.settings.button_link }}" class="heretic-link"><img src="{{ 'white-arrow-right.png' | asset_url }}"></a>
+
 
 {% schema %}
   {
     "name": "Beton Vernon Image",
-    "class": "headline-section featured-content-section",
-    "settings": [
+    "class": "headline-section",
+	"max_blocks": 8,
+    "blocks": [
+     {
+      "type": "image",
+      "name": "Image",
+      "settings": [
       {
         "type": "image_picker",
         "id": "image",
@@ -55,11 +60,18 @@
         ],
         "default": "center"
       }
+	]
+	}
     ],
     "presets": [
       {
         "name": "Beton Vernon Image",
-        "category": "Text"
+        "category": "Text",
+        "blocks": [
+        {
+        	"type": "image"
+        }
+        ]
       }
     ]
   }

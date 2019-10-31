@@ -8,7 +8,7 @@
 
       {%- when 'question' -%}
         <div class="shopify_explorer_faq__item {% unless expand_questions %}shopify_explorer_faq__item--expandable{% endunless %}" {{ block.shopify_attributes }}>
-          <h3 class="shopify_explorer_faq__question h5 {% unless expand_questions %}link{% endunless %}">{{ block.settings.title }}<span class="plus">+</span><span class="minus">-</span></h3>
+          <h3 class="shopify_explorer_faq__question h5 {% unless expand_questions %}link{% endunless %}">{{ block.settings.title }}<span class="plus">+</span><span class="minus">_</span></h3>
           <div class="shopify_explorer_faq__answer rte">
             {{ block.settings.answer }}
           </div>

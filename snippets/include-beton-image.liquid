@@ -22,50 +22,52 @@
 
 <div class="homepage_content clearfix">
   <div class="container">
-    <div class="sixteen columns">
-      <div class="section {{ text_alignment }} clearfix">
-         <a {% if button_link != blank %}href="{{ button_link }}"{% endif %}>
+    <div class="sixteen columns no-gutters">
+     {% for block in section.blocks %} 
+      <div class="section {{ block.settings.text_alignment }} clearfix">
+         <a {% if block.settings.button_link != blank %}href="{{ block.settings.button_link }}"{% endif %}>
         <div class="img-wrap">
-          {% if image %}
-            <img  src="{{ image.src | img_url: '300x' }}"
+          {% if block.settings.image %}
+            <img  src="{{ block.settings.image.src | img_url: '300x' }}"
                   class="lazyload lazyload--fade-in"
-                  alt="{{ image.alt }}"
+                  alt="{{ block.settings.image.alt }}"
                   data-sizes="auto"
-                  data-src="{{ image | img_url: '2048x' }}"
-                  data-srcset=" {{ image | img_url: '2048x' }} 2048w,
-                                {{ image | img_url: '1600x' }} 1600w,
-                                {{ image | img_url: '1200x' }} 1200w,
-                                {{ image | img_url: '1000x' }} 1000w,
-                                {{ image | img_url: '800x' }} 800w,
-                                {{ image | img_url: '600x' }} 600w,
-                                {{ image | img_url: '400x' }} 400w"
+                  data-src="{{ block.settings.image | img_url: '2048x' }}"
+                  data-srcset=" {{ block.settings.image | img_url: '2048x' }} 2048w,
+                                {{ block.settings.image | img_url: '1600x' }} 1600w,
+                                {{ block.settings.image | img_url: '1200x' }} 1200w,
+                                {{ block.settings.image | img_url: '1000x' }} 1000w,
+                                {{ block.settings.image | img_url: '800x' }} 800w,
+                                {{ block.settings.image | img_url: '600x' }} 600w,
+                                {{ block.settings.image | img_url: '400x' }} 400w"
                   />
           {% endif %}
         </div>
         </a>
-        {% if title != blank %}
-          <h2 class="title {{ text_alignment }}">
-            {{ title | escape }}
+        {% if block.settings.title != blank %}
+          <h2 class="title {{ block.settings.text_alignment }}">
+            {{ block.settings.title | escape }}
           </h2>
-          {% if show_divider %}
+          {% if block.settings.show_divider %}
             <div class="feature_divider"></div>
           {% endif %}
         {% endif %}
 
-        {% if content != blank %}
-          <div class="richtext_content--{{ text_size }} {{ text_alignment }}">
-            {{ content }}
+        {% if block.settings.content != blank %}
+          <div class="richtext_content--{{ block.settings.text_size }} {{ block.settings.text_alignment }}">
+            {{ block.settings.content }}
           </div>
         {% endif %}
 
-        {% if button_label != blank %}
+        {% if block.settings.button_label != blank %}
           <p>
-            <a {% if button_link != blank %}href="{{ button_link }}"{% endif %} class="action_button">
-              {{ button_label | escape }}
+            <a {% if block.settings.button_link != blank %}href="{{ block.settings.button_link }}"{% endif %} class="action_button">
+              {{ block.settings.button_label | escape }}
             </a>
           </p>
         {% endif %}
       </div>
+     {% endfor %} 
     </div>
   </div>
 </div>

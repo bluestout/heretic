@@ -44,9 +44,9 @@
                    />
           {% else %}
             {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-          {% endif %}  
-          
-          <div class="video-wrapper"> <span class="close_menu_tag_video">X</span><iframe width="420" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+          {% endif %}
+
+          <div class="video-wrapper"> <span class="close_menu_tag_video">X</span><iframe width="420" height="345" src="{{ section.settings.video }}?rel=0" frameborder="0">
             </iframe></div>
         </div>
       {% endcapture %}
@@ -95,11 +95,10 @@
         "info": "1600 x 1000px recommended"
       },
   		{
-      "type": "video_url",
-      "id": "video",
-      "label": "Video link",
-      "accept": ["youtube", "vimeo"],
-      "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+        "type": "text",
+        "id": "video",
+        "label": "Video link",
+        "info": "It should be embed video url such as https://www.youtube.com/embed/tgbNymZ7vqY"
     	},
       {
         "type": "select",

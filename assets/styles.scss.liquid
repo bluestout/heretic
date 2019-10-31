@@ -6357,6 +6357,12 @@ div.product-details {
 
   .hsContent {
     padding: 50px 5px;
+    .collection & {
+      padding: 70px 5px;
+    }
+    .collection-sub-collections & {
+      padding: 70px 5px;
+    }
   }
 
 {% endif %}
@@ -7445,21 +7451,6 @@ p.continue_reading a {
     text-align: center;
     margin: 0 auto;
     position: absolute;
-}
-.img-wrap:before {
-    content: "";
-    background-image: url(https://cdn.shopify.com/s/files/1/0158/2484/6912/files/line_copy.png);
-    height: 100%;
-    width: 524px;
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 45px;
-    z-index: 99;
-    background-repeat: no-repeat;
-    margin: 0 auto;
-    text-align: center;
 }
 .img-wrap {
 	position: relative;
@@ -9957,5 +9948,192 @@ h3 {
         margin-left: 0;
       }
     }
+  }
+}
+h3.shopify_explorer_faq__question.h5.link.active span.minus {
+    top: -18px;
+}
+@media (max-width: 767px){
+  .page-faq{
+    .page-title-image .hsContent {
+        margin-top: -15px !important;
+    }
+  }
+    .page-about .global-wrapper {
+      padding-top: 0px;
+  }
+    .page-iamherectic .container.main.content.main-wrapper {
+      padding: 0px;
+  }
+  .page-iamherectic .img-wrap:before {
+      width: 100%;
+  }
+}
+
+/* --------------------- Custom styles ------------------------ */
+
+@media (max-width: 767px) {
+  .container {
+    .sixteen {
+      &.columns {
+        &.no-gutters {
+          width: 100%;
+          padding: 0 !important;
+        }
+      }
+    }
+  }
+  .page-iamherectic {
+    .page-title-image {
+      h1 {
+        &.headline {
+          font-size: 24px !important;
+          line-height: 1em !important;
+        }
+      }
+      .subtitle {
+        p {
+          letter-spacing: 1px;
+          max-width: calc(100% - 20px);
+          height: auto;
+          line-height: 1.5em;
+        }
+      }
+    }
+  }
+  .beton-vernon-image {
+    h2 {
+      &.title {
+        &.center {
+          bottom: 32px;
+          font-size: 16px;
+        }
+      }
+    }
+    .homepage_content {
+      padding: 0;
+      .container {
+        padding: 0;
+        .section {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+/* Collection description */
+.collection-title {
+  color:#000;
+  font-weight: bold;
+  margin-top: 50px;
+}
+.collection-description {
+  font-family: Raleway, sans-serif;
+  display: table;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #030303;
+  .one-half.desc-interior {
+    display: table-cell;
+    width: 50%;
+    vertical-align: top;
+    .desc_padding {
+      padding: 40px;
+      p {
+        font-family: styrene-reg;
+        letter-spacing: 1px;
+        font-size: 14px;
+        color: #000000;
+      }
+      .desc_title {
+        font-family: styrene-bold;
+       	color: #030303;
+        text-transform: uppercase;
+        font-size: 16px;
+        letter-spacing: 2px;
+      }
+      .cta_btn {
+        letter-spacing: 2px;
+        color: #030303;
+        font-size: 16px;
+        text-transform: uppercase;
+        
+        img {
+          width: 50px;
+          vertical-align: top;
+        }
+      }
+    }
+    &.img_wrapper {
+      line-height: 0;
+      p {
+        margin-bottom: 0;
+        line-height:0;
+      }
+    }
+    img {
+      width: 100%;
+    }
+  }
+}
+
+/* only for on hover show title and description */
+/* ===============================================
+// Reveal module
+// =============================================== */
+
+.reveal .hidden { display: block !important; visibility: visible !important;}
+.product:hover .reveal img { opacity: 1; }
+.reveal { position: relative; }
+.reveal .hidden { 
+  position: absolute; 
+  z-index: -1;
+  top: 0; 
+  width: 100%; 
+  height: 100%;  
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.3s ease-in-out;
+  -o-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;  
+}
+.reveal:hover .hidden { 
+  z-index: 1000;
+  opacity: 1;    
+}
+.reveal .caption {
+  position: absolute;
+  top: 0;  
+  display: table;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  font: 13px/1.6 sans-serif;
+  text-transform: uppercase;
+  color: #333;
+  letter-spacing: 1px;
+  text-align: center;
+  text-rendering: optimizeLegibility;
+}
+.reveal .hidden .caption .centered {
+  display: table-cell;
+  vertical-align: middle;
+}
+.product-title {
+  font-family: "Fortescue Pro Display";
+  font-size: 25px;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  max-width: 160px;
+  width:100%;
+  text-align: left;
+  line-height: 0.9em;
+}
+
+@media (min-width: 480px) and (max-width: 979px) {
+  .reveal .caption { 
+    font-size: 11px; 
   }
 }

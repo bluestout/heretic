@@ -2459,27 +2459,33 @@ jQuery(document).ready(function(){
     });
 });
 jQuery(document).ready(function($){
-	jQuery(document).on("click",".page-film img.my_video_open_section",function(){
+	jQuery(document).on("click",".page-film img.my_video_open_section",function(e){
 		jQuery(this).addClass('my_video_section');
 		jQuery(this).prev('div').hide();
 		jQuery(this).next('div').show();
-    });
+    jQuery(this).next('div').find('iframe')[0].src += "&autoplay=1";
+    jQuery(this).parent().find('.my_play_btn').hide();
+    e.preventDefault();
+  });
 });
 jQuery(document).ready(function($){
-	jQuery(document).on("click",".page-film .my_play_btn",function(){
+	jQuery(document).on("click",".page-film .my_play_btn",function(e){
 		jQuery(this).addClass('my_video_section');
 		jQuery(this).hide();
 		//$('.my_video_section').append('<style>.my_video_section:before{display:none !important;}</style>');
 		jQuery(this).next('img').hide();
-		jQuery(this).next().next('div').show();
-    });
+		jQuery(this).parent().find('.video-wrapper').show();
+    jQuery(this).parent().find('.video-wrapper iframe')[0].src += "&autoplay=1";
+    e.preventDefault();
+  });
 });
 jQuery(document).ready(function($){
 	jQuery(document).on("click",".page-film .close_menu_tag_video",function(){
 		jQuery(this).parent('div').prev().prev('div').show();
 		jQuery(this).parent('div').prev('img').show();
 		jQuery(this).parent('div').hide();
-    });
+    jQuery(this).parents('.image_column').find('.my_play_btn').show();
+  });
 });
 
 /*

@@ -30,6 +30,7 @@
     <div class="relative product_image">
       <div class="product_container {% if settings.collection_secondary_image != blank and product.images[1] != blank %}swap-{{ settings.collection_secondary_image }}{% else %}swap-false{% endif %}">
         <div class="image__container" style="{% if settings.align_height %} max-width: {{ product_set_width }}px; {% else %} max-width: {{- product.featured_image.width -}}px; {% endif %}">
+          <div class="reveal">
           <img  src="{{ product.featured_image | product_img_url: '600x' }}"
                 alt="{{ alt_text | escape }}"
                 style="{{ align_height_value }}"
@@ -43,6 +44,14 @@
                         {{ product.featured_image | product_img_url: '600x' }} 600w,
                         {{ product.featured_image | product_img_url: '400x' }} 400w"
               />
+            <div class="hidden">
+              <div class="caption">
+                <div class="centered">
+                  <p class="product-title">{{ product.title }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
             {% if settings.collection_secondary_image != blank and product.images[1] != blank %}
                 <img src="{{ product.images[1] | product_img_url: '900x' }}"
                 class="secondary lazyload"

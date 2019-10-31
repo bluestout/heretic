@@ -1,3 +1,4 @@
+{% comment %}
 <div class="container main content main-wrapper">
   <div class="sixteen columns page clearfix">
     <div>
@@ -8,11 +9,19 @@
 </div>
   
         {% section 'beton-sec4' %}
+{% endcomment %}
 <div class="container main content main-wrapper">
   <div class="sixteen columns page clearfix">
-    <div>  
+    <div> 
+      {% comment %}
       {% section 'beton-sec3' %}
-      <div class="newsletter-wrapper">{% section 'newsletter' %}</div>
+      {% endcomment %}
+      
+      {% section 'beton-image' %}
+      
+      <div class="newsletter-wrapper">
+        {% section 'newsletter' %}
+      </div>
     </div>
   </div>
   </div>

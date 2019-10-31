@@ -16,7 +16,27 @@
   {% endif %}
 {% endfor %}
 
+
 <div itemtype="http://schema.org/ItemList" class="products">
+  
+{% if collection.handle contains 'dirty' or collection.handle contains 'accords' %}
+  {% if collection.description != blank %}
+    <div class="two-thirds column collection_description alpha">
+      <div class="collection-description">
+      {% assign collectionDescription = collection.description | split:"<!-- split -->"%}
+      
+      <div class="one-half desc-interior">
+        {{ collectionDescription[0] }}
+      </div>
+      <div class="one-half desc-interior img_wrapper">
+        {{ collectionDescription[1] }}
+        
+      </div>
+      </div>
+      
+    </div>
+{% endif %}
+{% endif %}
   {% for product in products limit: forLimit %}
     {% if product.id != skip_product.id  %}
       {% include 'product-thumbnail', sidebar: sidebar %}

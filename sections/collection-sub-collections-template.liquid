@@ -65,8 +65,7 @@
 
     {% if section.settings.display_collection_header_title and section.settings.featured_collection_image == blank %}
       <div class="sixteen columns">
-        <h1 class="center">{{ collection.title }}</h1>
-        <div class="feature_divider"></div>
+        <h1 class="left collection-title">{{ collection.title }}</h1>
       </div>
     {% endif %}
 
@@ -150,21 +149,20 @@
         {% include 'collection-loop', sidebar: sidebar %}
       {% endif %}
 
-      {% if collection.description != blank %}
-        <div class="section clearfix collection_description">
-          {{ collection.description }}
-        </div>
-      {% endif %}
-
+    
       {% if collection.products.size > 0 %}
         {% assign products = collection.products %}
         {% assign products_per_row = section.settings.products_per_row %}
+         
         {% include 'product-loop', sidebar: sidebar, limit: section.settings.pagination_limit %}
+        
       {% endif %}
 
       {% include 'pagination' with sidebar %}
     </div>
   {% endpaginate %}
+        
+        {% include 'collection-filter' %}
 </div>
 
 <style>
