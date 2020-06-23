@@ -35,7 +35,7 @@
       {% endif %}
 	  <ul class="text-center tabs">
 	  	{% for head in tab_heads %}
-	  		<li><a href="#tab-{{- index -}}">{{ head }}</a></li>
+	  		<li><a href="#tab-{{- index -}}">{{ head | remove: '<br>' }}</a></li>
 		 	{% assign index =  index | plus: 1  %}
 	  	{% endfor %}
 	  </ul>
@@ -45,7 +45,7 @@
 	 	{% assign index =  index | plus: 1  %}
 	  {% endfor %}
   	</div>
-	
+
 <script>
   document.addEventListener( 'DOMContentLoaded', function () {
     $('ul.tabs').each(function(){
@@ -66,14 +66,7 @@
       });
     });
   }, false );
-</script> 
+</script>
 
 
- <style>
-  ... content of the STYLE section of the tutorial ...
- </style>
-
-{% else %}
-	{{ description }}
 {% endif %}
-

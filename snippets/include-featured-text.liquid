@@ -39,6 +39,8 @@
                                 {{ image | img_url: '600x' }} 600w,
                                 {{ image | img_url: '400x' }} 400w"
                   />
+          {% else %}
+          <img src="{{ 'leaf_ico.svg' | asset_url }}" data-sizes="auto" style="max-width:32px;" />
           {% endif %}
         </div>
         {% if title != blank %}
@@ -58,7 +60,7 @@
 
         {% if button_label != blank %}
           <p>
-            <a {% if button_link != blank %}href="{{ button_link }}"{% endif %} class="action_button">
+            <a {% if button_link != blank %}href="{{ button_link }}"{% endif %} class="button">
               {{ button_label | escape }}
             </a>
           </p>

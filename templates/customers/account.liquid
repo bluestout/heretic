@@ -19,17 +19,18 @@
 
       <div class="order-history-tabs">
         <ul>
-          <li><a href="/account" class="dashboard_full active">DASHBOARD</a></li>
-          <li><a href="/account" class="full_recover_fully">ORDER HISTORY</a></li>
+          <li class="active"><a href="/account" class="dashboard_full active">DASHBOARD</a></li>
           <li><a href="/account/addresses" class="full_recover_fully">ACCOUNT DETAILS</a></li>
+          <li><a href="/account/logout" class="full_recover_fully">LOGOUT</a></li>
         </ul>
+        <span class="icon-arrow-down mobile-only"></span>
       </div>
 
       <div class="twelve columns order_history_title">
         <h4>{{ 'customer.orders.title' | t }}</h4>
 
         {% if customer.orders.size != 0 %}
-          <table id="customer_orders">
+          <table id="customer_orders" class="desktop-only">
             <thead>
               <tr>
                 <th>{{ 'customer.orders.order_number' | t }}</th>
@@ -53,6 +54,36 @@
               {% endfor %}
             </tbody>
           </table>
+          <div class="mobile-only">
+            {% for order in customer.orders %}
+            <table>
+              <tbody>
+                <tr>
+                  <td><strong>{{ 'customer.orders.order_number' | t }}</strong></td>
+                  <td>{{ order.name | link_to: order.customer_url }}</td>
+                </tr>
+                <tr>
+                  <td><strong>{{ 'customer.orders.date' | t }}</strong></td>
+                  <td>{{ order.created_at | date: format: "month_day_year" }}</td>
+                </tr>
+                <tr>
+                  <td><strong>{{ 'customer.orders.payment_status' | t }}</strong></td>
+                  <td>{{ order.financial_status_label }}</td>
+                </tr>
+                <tr>
+                  <td><strong>{{ 'customer.orders.fulfillment_status' | t }}</strong></td>
+                  <td>{{ order.fulfillment_status_label }}</td>
+                </tr>
+                <tr>
+                  <td><strong>{{ 'customer.orders.total' | t }}</strong></td>
+                  <td>
+                    <span class="money">{{ order.total_price | money }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            {% endfor %}
+          </div>
         {% else %}
           <p>{{ 'customer.orders.none' | t }}</p>
         {% endif %}

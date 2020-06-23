@@ -2,7 +2,7 @@
   The contents of the product.liquid template can be found in /sections/product-template.liquid
 {% endcomment %}
 
-<div class="container main content main-wrapper">
+<div class="container main content main-wrapper prod-container">
 
   <div class="breadcrumb__wrapper sixteen columns">
     <div class="nav_arrows">
@@ -31,16 +31,41 @@
 
 {% section 'product__sidebar' %}
 
-<div class="sixteen column alpha omega " data-initial-width="sixteen" data-sidebar-width="twelve">
+<div class="alpha omega " data-initial-width="" data-sidebar-width="twelve">
   {% section 'product-template' %}
   <div class="sixteen columns" data-initial-width="sixteen" data-sidebar-width="twelve offset-by-four">
          {% section 'product-recommendations' %}
   </div>
 </div>
 </div>
+
+{% comment %}
 <div class="singlepro-image">{% section 'single-product-image-banner' %}</div>
+{% endcomment %}
+
+
+<!-- Start metafield video code -->
+{% if product.metafields["global"]["PrdVideo"] %}
+  <div class="embed-container">
+  	{{ product.metafields["global"]["PrdVideo"] }}
+  </div>
+{% endif %}
+{% if product.metafields["global"]["PrdImage"] %}
+	<div class="singlepro-image">{% include 'image-fade-parallax', image: product.metafields["global"]["PrdImage"] %}</div>
+{% endif %}
+<!-- End metafield video code -->
+
+
 <div class="itspurealive-wrapper">{% section 'itspurealive' %}</div>
 <div class="custom-wrapper">{% section 'custom-sec' %}</div>
-<div class="fragrance-wrapper">{% section 'product-pure-live' %}</div>
+
+<!-- Start fragrance section -->
+<div class="fragrance-wrapper">{% include 'product-pure-live-metafield' %}</div>
+<!-- End fragrance section -->
+
 {% section 'html' %}
+{% comment %}Start automatically added Judge.me widget{% endcomment %}
+  {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, product: product %}
+{% comment %}End automatically added Judge.me widget{% endcomment %}
+
 <div class="newsletter-wrapper">{% section 'newsletter' %}</div>

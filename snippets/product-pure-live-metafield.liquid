@@ -1,0 +1,76 @@
+{% if product.metafields["global"]["PrdFrgEnable"] == 'true' %}
+
+    {% assign image = product.metafields["global"]["PrdFrgImg"] %}
+    {% assign layout = product.metafields["global"]["PrdFrgImgPosition"] %}
+    {% assign title = product.metafields["global"]["PrdFrgHeading"] %}
+    {% assign text = product.metafields["global"]["PrdFrgText"] %}
+    {% assign text_alignment = product.metafields["global"]["PrdFrgTextAlignment"] %}
+    {% assign button_label = product.metafields["global"]["PrdFrgBtnLabel"] %}
+    {% assign button_link = product.metafields["global"]["PrdfrgBtnLink"]  %}
+
+    {% assign full_text = text | split: '</p><p>' %}
+    {% assign excerpt = "" %}
+    {% if full_text.size > 1 %}
+      {% assign excerpt = full_text[0] | append: '</p>' %}
+    {% endif %}
+
+  <div class="container FragranceMetfield">
+    <div class="sixteen columns">
+      <div class="homepage_content section clearfix image_with_text image-text--align-{{ layout }}">
+        {% capture image_layout %}
+          <div class="eight columns image_column {% if layout == 'left' %}alpha animate_left{% else %}omega animate_right{% endif %}">
+            {% if image != blank %}
+              <img  src="{{ image }}"
+                    alt="{{ image.alt }}"
+                    data-src="{{ image }}"
+                    class="lazyload lazyload--fade-in"
+                    data-sizes="auto"
+                    data-srcset=" {{ image }} 2048w,
+                                  {{ image }} 1600w,
+                                  {{ image }} 1200w,
+                                  {{ image }} 1000w,
+                                  {{ image }} 800w,
+                                  {{ image }} 600w,
+                                  {{ image }} 400w"
+                     />
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </div>
+        {% endcapture %}
+
+        {% if layout == 'left' %}
+          {{ image_layout }}
+        {% endif %}
+
+        <div class="eight columns content_column {% if layout == 'left' %}omega{% else %}alpha{% endif %} text-align--{{text_alignment}} full_about">
+          {% if title != blank %}
+            <h3>
+              {{ title | escape }}
+            </h3>
+          {% endif %}
+          {% if text != blank %}
+            {% if excerpt != "" %}
+            <div class="excerpts">
+              {{ excerpt }}
+            </div>
+            {% endif %}
+            <div class="full_text {% if excerpt != "" %}hide{% endif %}">
+              {{ text }}
+            </div>
+          {% endif %}
+          {% if button_label != blank %}
+            <a {% if button_link != blank %}href="{{ button_link }}"{% endif %} class="button about_read_button">
+              {{ button_label | escape }}
+            </a>
+          {% endif %}
+        </div>
+
+        {% if layout == 'right' %}
+          {{ image_layout }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endif %}

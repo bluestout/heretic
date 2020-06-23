@@ -13,8 +13,8 @@
     </div>
   {% endif %}
 {% endif %}
-<div id="header" class="mm-fixed-top Fixed mobile-header mobile-sticky-header--{{ section.settings.fixed_header }}" data-search-enabled="{{ section.settings.search_enabled }}">
-  <div class="show_menu_sect_top toggle_menu_sel"><p>MENU</p></div>    
+<div id="header" class="mm-fixed-top Fixed mobile-header mobile-sticky-header--{{ section.settings.fixed_header }} {% if template == 'article' %}invert{% endif %}" data-search-enabled="{{ section.settings.search_enabled }}">
+  <div class="show_menu_sect_top toggle_menu_sel"><p>MENU</p></div>
   <a href="#nav" class="icon-menu" aria-haspopup="true" aria-label="{{ 'layout.general.menu' | t }}"><span>{{ 'layout.general.menu' | t }}</span></a>
   <a href="{{ shop.url }}" title="{{ shop.name }}" class="mobile_logo logo">
     {% if section.settings.logo_mobile != nil %}
@@ -25,14 +25,14 @@
       {{ shop.name }}
     {% endif %}
   </a>
-  <a href="#cart" class="icon-cart cart-button right"><span>{{ cart.item_count }}</span></a>
+  <a href="#cart" class="icon-cart cart-button right"><img src="{{ 'shopping_bag_ico.svg' | asset_url }}" /><span>{% if cart.item_count > 0 %}{{ cart.item_count }}{% endif %}</span></a>
 </div>
 <div class="hidden">
-  
 
-  
+
+
   <div id="nav">
-    
+
     <ul>
       {% for link in linklists[section.settings.main_linklist].links %}
         {% if link.links == blank %}
@@ -94,7 +94,7 @@
 
   <form action="/checkout" method="post" id="cart" class="head_cart_popup side-cart-position--{{ settings.side_cart_position }}">
     <ul data-money-format="{{ shop.money_format }}" data-shop-currency="{{ shop.currency }}" data-shop-name="{{ shop.name | escape }}">
-<!--       <li class="mm-subtitle"><a class="continue ss-icon" href="#cart"><span class="icon-close"></span></a></li> -->
+       <li class="mm-subtitle"><a class="continue ss-icon" href="#cart"><span class="icon-close"></span></a></li>
 
       {% if cart.item_count == 0 %}
         <li class="empty_cart">{{ 'layout.general.empty_cart' | t }}</li>
@@ -175,8 +175,7 @@
             {{ 'layout.general.subtotal' | t }}
           </a>
         </li>
-
-        <li class="mm-subtitle clearfix">
+        <li class="mm-subtitle desktop-only clearfix">
           {% if settings.display_special_instructions %}
             <textarea id="cart-note" name="note" rows="2" placeholder="{{ 'layout.general.cart_note' | t }}" class="clearfix">{{ cart.note }}</textarea>
           {% endif %}
@@ -192,49 +191,41 @@
 
           <span class="mm-action_buttons">
           {% if settings.display_view_cart %}
-          	<a href="/cart" class="action_button edit_cart left">{{ 'layout.general.edit_cart' | t }}</a>
+            <a href="/cart" class="action_button edit_cart left button secondary">{{ 'layout.general.edit_cart' | t }}</a>
           {% endif %}
           <input type="submit" class="action_button {% if settings.display_view_cart or settings.side_cart_position == "bottom" %}left{% else %}full-width{% endif %}" value="{{ 'layout.general.checkout' | t }}" />
           </span>
         </li>
+
       {% endif %}
     </ul>
+    <li class="mm-subtitle mobile-only clearfix">
+      {% if settings.display_special_instructions %}
+        <textarea id="cart-note" name="note" rows="2" placeholder="{{ 'layout.general.cart_note' | t }}" class="clearfix">{{ cart.note }}</textarea>
+      {% endif %}
+
+      {% if settings.display_tos_checkbox %}
+        <aside class="tos tos_checkbox">
+          <input type="checkbox" class="tos_agree" id="sliding_agree" required />
+          <label class="tos_label" for="sliding_agree">
+            {{ settings.tos_richtext }}
+          </label>
+        </aside>
+      {% endif %}
+
+      <span class="mm-action_buttons">
+      {% if settings.display_view_cart %}
+        <a href="/cart" class="action_button edit_cart left button secondary">{{ 'layout.general.edit_cart' | t }}</a>
+      {% endif %}
+      <input type="submit" class="action_button {% if settings.display_view_cart or settings.side_cart_position == "bottom" %}left{% else %}full-width{% endif %}" value="{{ 'layout.general.checkout' | t }}" />
+      </span>
+    </li>
   </form>
 </div>
-<div class="custom_header_menu" style="display:none;">
+<div class="custom_header_menu">
 <div class="header_last_report" style="display:none;"><span id="close_menu_tag"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 224.512 224.512" style="enable-background:new 0 0 224.512 224.512;" xml:space="preserve">
 <g>
 	<polygon style="fill:#010002;" points="224.507,6.997 217.521,0 112.256,105.258 6.998,0 0.005,6.997 105.263,112.254    0.005,217.512 6.998,224.512 112.256,119.24 217.521,224.512 224.507,217.512 119.249,112.254  "/>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
 </g>
 </svg></span></div>
   <div class="custom_menu_inner">
@@ -249,6 +240,7 @@
             {% else %}
               <a href="{{ link.url }}">{{ link.title }}</a>
             {% endif %}
+            <i class="fa fa-angle-down"></i>
             <ul>
               {% for sub_link in link.links %}
                 {% if sub_link.links == blank %}
@@ -272,7 +264,7 @@
           </li>
         {% endif %}
       {% endfor %}
-    
+
     {% comment %}
       {% if shop.customer_accounts_enabled %}
         {% if customer %}
@@ -299,6 +291,10 @@
     {% endcomment %}
     </ul>
   	</div>
+    <div class="header_social">
+      <p><a href="/account" class="link account">{{ 'customer.account.title' | t | upcase }}</a></p>
+      <p><a href="http://www.instagram.com/hereticparfum" class="link" target="_blank">FOLLOW @HERETICPARFUM</a></p>
+    </div>
 </div>
 {% if template contains "index" %}
   {% assign feature_image = true %}

@@ -156,7 +156,7 @@
             <div class="{% if section.settings.blog_posts_per_row == 2 %}eight columns {% cycle 'alpha', 'omega' %}{% elsif section.settings.blog_posts_per_row == 3 %}one-third column {% cycle 'alpha', '', 'omega' %}{% else %}four columns {% cycle 'alpha', '', '', 'omega' %}{% endif %} article">
           {% endif %}
 
-           
+
 {% if article.content contains "<img" %}
       {% assign content = article.content | split: 'src="' %}
       {% assign first_img = content[1] | split: '"' | first %}
@@ -166,7 +166,7 @@
         <img src="{{image_src}}"  class="lazyload lazyload--fade-in" alt="{% if article.image.alt != blank %}{{ article.image.alt }}{% else %}{{ article.title | escape }}{% endif %}"/>
       </a>
 
-                
+
 {% else %}
           {% if article.image %}
             <a href="{{ article.url }}" title="{{ article.title | escape }}">
@@ -234,8 +234,8 @@
               </div>
           {% endif %}
           {% if section.settings.read_more_link %}
-            <p>
-              <a href="{{ article.url }}" title="{{ article.title | escape }}">{{ 'blogs.general.continue_reading_html' | t }} <span class="icon-arrow-right"></span></a>
+            <p class="continue_reading">
+              <a href="{{ article.url }}" title="{{ article.title | escape }}">{{ 'blogs.general.continue_reading_html' | t }} <!--<span class="icon-arrow-right"></span>--></a>
             </p>
           {% endif %}
         </div>

@@ -23,6 +23,7 @@
         {% endif %}
         data-product-id="{{ product.id }}">
     {% form 'product', product %}
+    <span class="mw-product-options"></span>
     {% include 'size-chart-popup' %}
 
     {% if settings.display_inventory_left %}
@@ -108,7 +109,7 @@
           <input type="hidden" name="return_to" value="/checkout" />
         {% endif %}
         {% capture add_to_cart_label %}{% if collection_handles contains 'pre-order' %}{{ 'collections.general.pre_order' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endif %}{% endcapture %}
-        <button type="{% if settings.cart_action == 'ajax' %}button{% else %}submit{% endif %}" name="add" class="{% if settings.cart_action == 'ajax' %} ajax-submit {% endif %}action_button add_to_cart {% if show_payment_button %} action_button--secondary {% endif %}" data-label={{ add_to_cart_label | json }}><span class="text">{{ add_to_cart_label }}</span></button>
+        <button type="{% if settings.cart_action == 'ajax' %}button{% else %}submit{% endif %}" name="add" id="AddToCart" class="{% if settings.cart_action == 'ajax' %} ajax-submit {% endif %}action_button add_to_cart {% if show_payment_button %} action_button--secondary {% endif %}" data-label={{ add_to_cart_label | json }}><span class="text">{{ add_to_cart_label }}</span></button>
         {% if show_payment_button %}
           {{ form | payment_button }}
         {% endif %}
@@ -119,6 +120,10 @@
 {% endif %}
 
 <div class="text-center shipping_detail">
-$9 Flat Rate Shipping USA only.<br/>
-Free Shipping On Orders over $100
+  {% if section.settings.shipping_detail != blank %}
+    {{ section.settings.shipping_detail }}
+  {% else %}
+    $9 Flat Rate Shipping USA only.<br/>
+    Free Shipping On Orders over $100
+  {% endif %}
 </div>

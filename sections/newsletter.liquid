@@ -59,16 +59,16 @@
 
                 <input type="hidden" name="challenge" value="false" />
                 <input type="email" class="contact_email" name="contact[email]" required placeholder="Email Address" />
-                <input type='submit' class="action_button sign_up" value="{{ 'general.newsletter_form.submit' | t }}" />
+                <input type='submit' class="action_button sign_up secondary" value="{{ 'general.newsletter_form.submit' | t }}" />
               </div>
             {% endif %}
           {% endform %}
         </div>
-        
+
       </div>
     </div>
   </div>
-  
+
   <div class="social-div">
     <p>FOLLOW @HERETICPARFUM</p>
     {% include 'social-icons' %}
@@ -94,9 +94,6 @@
   .newsletter-section .homepage_content {
     background-color: transparent;
     padding: 0;
-  }
-  .newsletter-section .container .columns {
-    padding: 40px 0;
   }
   .newsletter-section .homepage_content div.container .columns {
     background-color: {{ section.settings.newsletter_background }};

@@ -22,8 +22,9 @@
           <h4 class="title">YOUR CART</h4>
 
           {% for item in cart.items %}
-          	<div class="cart_item_parent_group">
+          	<div class="cart_item_parent_group cart__row {% include 'mw_PO_cart', code: 'class' %}" {% include 'mw_PO_cart' with item, code: 'style' %}>
             <div class="five columns alpha">
+              {% include 'mw_PO_cart' with item, code: 'relation' %}
               <a href="{{ item.url }}" title="{{ item.title | escape }}" class="cart_page_image">
                 <img  src="{{ item | img_url: '300x' }}"
                       alt="{{ item.title | escape }}"
@@ -63,6 +64,7 @@
                 </p>
               {% endunless %}
 
+              {% comment %}
               {% if item.properties %}
                 <p>
                   {% for p in item.properties %}
@@ -76,6 +78,8 @@
                   {% endfor %}
                 </p>
               {% endif %}
+              {% endcomment %}
+              {% include 'mw_PO_cart' with item, code: 'properties' %}
 
              <!-- <p class="price_total">-->
                 <!-- <strong>{{ 'cart.general.price_per_item' | t }}:</strong>
@@ -100,7 +104,7 @@
                 </span>
                 {% if item.line_level_discount_allocations.size > 0 %}
                   <span class="money">
-                    {{ item.final_line_price | money }}
+                    {% include 'mw_PO_cart' with item, code: 'line_price' %}
                   </span>
                 {% endif %}
                 <span class="money {% if item.line_level_discount_allocations.size > 0 %} hidden {% endif %}">
@@ -123,7 +127,6 @@
 
 
             </div>
-              <br class="clear" />
             <br class="clear" />
           </div>
 
@@ -137,7 +140,7 @@
           </div>
         </div>
 
-        <div class="five columns offset-by-one">
+        <div class="five columns offset-by-one total-wrapper">
           <div class="cart_total_detal">
 
           {% if cart.cart_level_discount_applications != blank %}
@@ -190,11 +193,13 @@
             <input type="submit" class="action_button add_to_cart" id="checkout" name="checkout" value="{{ 'cart.general.checkout' | t }}" />
           </p>
 
+          {% comment %}
           {% if content_for_additional_checkout_buttons %}
             <div class="additional-checkout-buttons additional-checkout-buttons--vertical">
               {{ content_for_additional_checkout_buttons }}
             </div>
           {% endif %}
+          {% endcomment %}
 
                <input type="submit" name="update"
                 class="update_cart cart__submit cart__submit--ajax-disabled cart__submit-control"

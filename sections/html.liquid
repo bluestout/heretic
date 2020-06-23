@@ -1,27 +1,26 @@
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<div class="container content" style="padding-top:0"> 
+<div class="container content prod-container" style="padding-top:0">
   <div class="row">
-    <div class="col-md-6">
+    <div class="one-half columns icons alpha">
      	<div class="row">
-          <div class="col-md-4">
+          <div class="one-third column">
              {% if section.settings.icon1 != blank %}
-            	<div class="iconss"><img src="{{ section.settings.icon1 | img_url }}"></div>
+            	<div class="iconss"><img src="{{ 'animal_ico.svg' | asset_url }}"></div>
              {% endif %}
             {% if section.settings.title1 != blank %}
             	<div class="ico-title">{{ section.settings.title1 }}</div>
              {% endif %}
           </div>
-           <div class="col-md-4">
+           <div class="one-third column">
               {% if section.settings.icon2 != blank %}
-            	 <div class="iconss"><img src="{{ section.settings.icon2 | img_url }}"></div>
+            	 <div class="iconss"><img src="{{ 'gender_ico.svg' | asset_url }}"></div>
               {% endif %}
              {% if section.settings.title2 != blank %}
              	<div class="ico-title">{{ section.settings.title2 }}</div>
              {% endif %}
           </div>
-           <div class="col-md-4">
+           <div class="one-third column">
               {% if section.settings.icon3 != blank %}
-           		  <div class="iconss"><img src="{{ section.settings.icon3 | img_url }}"></div>
+           		  <div class="iconss"><img src="{{ 'leaf_ico.svg' | asset_url }}"></div>
             	 {% endif %}
                {% if section.settings.title3 != blank %}
             	 <div class="ico-title">{{ section.settings.title3 }}</div>
@@ -29,10 +28,9 @@
           </div>
       </div>
     </div>
-    <div class="col-md-1"></div>
-     <div class="col-md-5">
+     <div class="one-half columns omega">
        <div class="main-image"><img src="{{ section.settings.main_img |  img_url: '500x500' }}"></div>
-       <div class="main_btn"><a href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a></div>
+       <div class="main_btn"><a href="{{ section.settings.button_link }}" class="action_button">{{ section.settings.button_label }}</a></div>
     </div>
   </div>
 </div>

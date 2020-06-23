@@ -1,4 +1,4 @@
-<div class="container content" style="padding-top:0">
+<div class="container fluid content" style="padding-top:0">
   <div class="sixteen columns featured_links">
     <div class="section clearfix feature ">
       {% for block in section.blocks %}
@@ -28,7 +28,7 @@
               {{ 'collection-' | append: i | placeholder_svg_tag: 'placeholder-svg placeholder-svg--promotions' }}
             {% endif %}
           </div>
-          
+
           {% if block.settings.title != blank %}
             <h2>{{ block.settings.title | escape }}</h2>
             {% if section.settings.show_divider %}
@@ -38,7 +38,7 @@
           {% if block.settings.link != blank %}
             </a>
           {% endif %}
-          
+
 		  <div class="ppp pro-title-wrapper">
           {% if block.settings.text != blank %}
             {% if block.settings.textm != blank %}
@@ -48,11 +48,11 @@
             {% endif %}
           {% endif %}
             {% if block.settings.textm != blank %}<div class="medium-up--hide">{{ block.settings.textm  }}</div>{% endif %}
-		  
-		  
+
+
 		  <div class="pro-btn">
 			  {% if block.settings.btn_label != blank %}
-				<a href="{{ block.settings.link }}">{{ block.settings.btn_label }}<img src="https://cdn.shopify.com/s/files/1/0158/2484/6912/files/Untitled-2.png?1631"></a>
+				<a href="{{ block.settings.link }}"><img src="{{ 'arrow_right.svg' | asset_url }}"></a>
 			  {% endif %}
 		  </div>
          </div>
@@ -69,11 +69,11 @@
       {% endfor %}
     </div>
   </div>
-  
-  
+
+
   <div class="shop_btn">
 	  {% if section.settings.shop_btn != blank %}
-	  <a href="{{ section.settings.shop_btn }}">Shop</a>
+	  <a href="{{ section.settings.shop_btn }}" class="button">Shop</a>
 	  {% endif %}
   </div>
 </div>

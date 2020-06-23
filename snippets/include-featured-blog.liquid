@@ -22,7 +22,7 @@
   {% assign read_more_link = section.settings.read_more_link %}
 {% endif %}
 
-<div class="container">
+<div class="">
   {% if blog != blank %}
     <div class="clearfix homepage_content">
       {% if title != blank %}
@@ -35,7 +35,7 @@
       {% endif %}
 
       {% for article in blog.articles limit: home_page_articles %}
-        <div class="{% if home_page_articles == 2 %}eight columns{% elsif home_page_articles == 3 %}one-third column{% else %}four columns{% endif %} article">
+        <div class="{% if home_page_articles == 2 %}eight columns{% elsif home_page_articles == 3 %}one-third column {% if forloop.index == 1 %}alpha{% elsif forloop.index == 3 %}omega{% endif %}{% else %}four columns{% endif %} article">
 {% if article.content contains "<img" %}
       {% assign content = article.content | split: 'src="' %}
       {% assign first_img = content[1] | split: '"' | first %}
@@ -45,9 +45,9 @@
         <img src="{{image_src}}"  class="block lazyload lazyload--fade-in"/>
       </a>
 
-                
+
 {% else %}
-          
+
           {% if article.image %}
             <a href="{{ article.url }}" title="{{ article.title | escape }}">
               <img  src="{{ article.image | img_url: '300x' }}"
@@ -115,7 +115,7 @@
           {% endif %}
           {% if read_more_link %}
           <p class="continue_reading">
-            <a href="{{ article.url }}" title="{{ article.title | escape }}">{{ 'blogs.general.continue_reading_html' | t }}</a>
+            <a href="{{ article.url }}" title="{{ article.title | escape }}" class="action_button">{{ 'blogs.general.continue_reading_html' | t }}</a>
           </p>
           {% endif %}
         </div>
@@ -133,7 +133,7 @@
       {% endif %}
 
       {% for i in (1..home_page_articles) %}
-        <div class="{% if home_page_articles == 2 %}eight columns{% elsif home_page_articles == 3 %}one-third column{% else %}four columns{% endif %} article">
+        <div class="{% if home_page_articles == 2 %}eight columns{% elsif home_page_articles == 3 %}one-third column {% if forloop.index == 1 %}alpha{% elsif forloop.index == 3 %}omega{% endif %}{% else %}four columns{% endif %} article">
           {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
 
           <h5 class="sub_title">
@@ -166,7 +166,7 @@
           {% endif %}
           {% if read_more_link %}
             <p>
-              <a href="{{ article.url }}" title="{{ article.title | escape }}">{{ 'blogs.general.continue_reading_html' | t }} <span class="icon-arrow-right"></span></a>
+              <a href="{{ article.url }}" title="{{ article.title | escape }}" class="action_button">{{ 'blogs.general.continue_reading_html' | t }} <span class="icon-arrow-right"></span></a>
             </p>
           {% endif %}
         </div>

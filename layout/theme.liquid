@@ -120,8 +120,16 @@
         }
       </style>
     </noscript>
+
+    <script type="text/javascript" async src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=PZ88Ke"></script>
 	<script src="https://www.powr.io/powr.js?platform=shopify"></script>
-  </head>
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+    <!-- Custom Stylesheets -->
+    {{ 'CustomStyles.css' | asset_url | stylesheet_tag }}
+
+    {% include 'judgeme_core' %}
+</head>
 
   {% if template contains "index" %}
     {% assign feature_image = true %}
@@ -188,5 +196,5 @@
       {% endif %}
     {% endif %}
   <script src='{{ 'ndnapps-easyfaqs.js' | asset_url }}' defer='defer'></script>
-</body>
+{% include 'mw_PO_objects' %}</body>
 </html>

@@ -61,7 +61,7 @@
 <div class="container main content main-wrapper">
   {% paginate article.comments by 100 %}
 
-    <div class="twelve columns {% if sidebar == false %}offset-by-two{% endif %}">
+    <div class="sixteen columns">
       <div class="section clearfix">
       {% if section.settings.blog_breadcrumb %}
           <div class="clearfix breadcrumb">
@@ -74,7 +74,7 @@
             </div>
           </div>
         {% endif %}
-        
+
         {% if section.settings.blog_tags and sidebar %}
           <div class="blog_meta tags {% if article.image and section.settings.banner_image %}right{% endif %}">
             {% for tag in article.tags %}
@@ -97,9 +97,11 @@
               {% endfor %}
             </div>
           {% endif %}
+          {% comment %}
           <h1 class="headline article_title">
-                  {{ article.title }}
-                </h1>
+            {{ article.title }}
+          </h1>
+          {% endcomment %}
           <p class="blog_meta">
             {% if section.settings.blog_author %}
               <span>{{ 'blogs.article.by_author' | t: author: article.author }}</span>
@@ -250,10 +252,10 @@
 
       {% if section.settings.blog_additional_articles and blog.articles_count > 1 %}
         <div class="section clearfix">
-         
+
           <h3 class="more_Articles">{{ 'blogs.article.additional_articles' | t: title: blog.title }}</h3>
           <hr class="title_bottom" />
-          
+
           {% assign article_found = false %}
           {% for a in blog.articles limit: 3 %}
             {% assign skip_article = false %}
@@ -266,13 +268,13 @@
             {% endif %}
             {% unless skip_article %}
               <div class="rt related_article relative one-third column {% cycle 'alpha', ' ', 'omega' %} article">
-                           
+
                 {% if a.content contains "<img" %}
                       {% assign content = a.content | split: 'src="' %}
                       {% assign first_img = content[1] | split: '"' | first %}
                       {% assign image_src = first_img | replace: '_small', '' | replace: '_compact', '' | replace: '_medium', '' | replace: '_large', '' | replace: '_grande', '' %}
                       {% assign src = content[1] | replace: '_small', '' | replace: '_compact', '' | replace: '_medium', '' | replace: '_large', '' | replace: '_grande', '' %}
-                      <a href="{{ a.url }}" title="{{ a.title | escape }}">
+                      <a href="{{ a.url }}" title="{{ a.title | escape }}" class="relative">
                         <img src="{{image_src}}"  class="rr lazyload lazyload--fade-in" alt="{% if a.image.alt != blank %}{{ a.image.alt }}{% else %}{{ a.title | escape }}{% endif %}"/>
                       </a>
 
@@ -343,7 +345,7 @@
                 {% endif %}
                 {% if section.settings.read_more_link %}
                   <div class="read_more">
-                    <a href="{{ a.url }}" title="{{ a.title | escape }}"><span>{{ 'blogs.general.continue_reading_html' | t }} </span><span class="read_arrow"><img src="https://cdn.shopify.com/s/files/1/0158/2484/6912/files/arrow_left.svg?12219" class="arrow_left" /></span></a>
+                    <a href="{{ a.url }}" title="{{ a.title | escape }}" class="action_button"><span>{{ 'blogs.general.continue_reading_html' | t }} </span><span class="read_arrow"><img src="https://cdn.shopify.com/s/files/1/0158/2484/6912/files/arrow_left.svg?12219" class="arrow_left" /></span></a>
                   </div>
                 {% endif %}
               </div>

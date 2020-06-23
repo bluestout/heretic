@@ -18,36 +18,38 @@
 
 
 <div itemtype="http://schema.org/ItemList" class="products">
-  
+
 {% if collection.handle contains 'dirty' or collection.handle contains 'accords' %}
+  {% comment %}
   {% if collection.description != blank %}
     <div class="two-thirds column collection_description alpha">
       <div class="collection-description">
-      {% assign collectionDescription = collection.description | split:"<!-- split -->"%}
-      
+      {% assign collectionDescription = collection.description | split:"<!-- split -->" %}
+
       <div class="one-half desc-interior">
         {{ collectionDescription[0] }}
       </div>
       <div class="one-half desc-interior img_wrapper">
         {{ collectionDescription[1] }}
-        
       </div>
       </div>
-      
     </div>
-{% endif %}
+  {% endif %}
+  {% endcomment %}
 {% endif %}
   {% for product in products limit: forLimit %}
     {% if product.id != skip_product.id  %}
-      {% include 'product-thumbnail', sidebar: sidebar %}
+      {% unless product.tags contains 'hidden' %}
+        {% include 'product-thumbnail', sidebar: sidebar %}
 
-      {% if products_per_row == 2 %}
-        {% cycle collection_group: '', new_row %}
-      {% elsif products_per_row == 3 %}
-        {% cycle collection_group: '', '', new_row %}
-      {% elsif products_per_row == 4 %}
-        {% cycle collection_group: '', '', '', new_row %}
-      {% endif %}
+        {% if products_per_row == 2 %}
+          {% cycle collection_group: '', new_row %}
+        {% elsif products_per_row == 3 %}
+          {% cycle collection_group: '', '', new_row %}
+        {% elsif products_per_row == 4 %}
+          {% cycle collection_group: '', '', '', new_row %}
+        {% endif %}
+      {% endunless %}
     {% endif %}
   {% endfor %}
 </div>

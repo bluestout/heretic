@@ -147,12 +147,6 @@
       <div class="sixteen columns">
     {% endif %}
 
-      {% if collection.description != blank %}
-        <div class="section clearfix collection_description">
-          {{ collection.description }}
-        </div>
-      {% endif %}
-
       {% if collection.products.size == 0 %}
         <div class="section clearfix">
           <p class="quote">{{ 'collections.general.no_matches' | t }}</p>
@@ -172,30 +166,8 @@
         {% endfor %} {% endcomment %}
 
 
-{% if section.settings.bt_collection  %}
-  {%- for collection in collections -%}
-
-          {% if collection.title == "Candle" %}
-          {% assign product_collections = collection.title %}
-          <h2 class="candle_status_force" id="{{ collection.id }}"><a href="{{ collection.url }}">
-          {{ collection.title }}
-          </a>
-          </h2>
-          {% for product in products %}
-          {% if product.type==product_collections %}
-        	<div class="candle-collection-wrapper">
-              <a href="{{ product.url }}"><img src="{{product.featured_image | product_img_url: '500x'}}"></a>
-            </div>
-          {% endif %}
-          {% endfor %}
-          {% endif %}
-
-  {%- endfor -%}
-{% endif %}
-
   {% endpaginate %}
- 
-       {% include 'collection-filter' %}
+
 </div>
 
 
@@ -338,12 +310,6 @@
       "id": "toggle",
       "label": "Toggle sidebar content",
       "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "bt_collection",
-      "label": "Show Bottom Products",
-      "default": true
     }
   ],
   "blocks": [

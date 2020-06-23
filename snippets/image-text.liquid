@@ -1,0 +1,93 @@
+{% if type == 'block' %}
+  {% assign id = block.id %}
+  {% assign image = block.settings.image %}
+  {% assign layout = block.settings.layout %}
+  {% assign title = block.settings.title %}
+  {% assign text = block.settings.text %}
+  {% assign text_alignment = block.settings.text_alignment %}
+  {% assign button_label = block.settings.button_label %}
+  {% assign button_link = block.settings.button_link %}
+  {% assign description = block.settings.description %}
+  {% assign video = block.settings.video %}
+{% else %}
+  {% assign id = section.id %}
+  {% assign image = section.settings.image %}
+  {% assign layout = section.settings.layout %}
+  {% assign title = section.settings.title %}
+  {% assign text = section.settings.text %}
+  {% assign text_alignment = section.settings.text_alignment %}
+  {% assign button_label = section.settings.button_label %}
+  {% assign button_link = section.settings.button_link %}
+  {% assign description = section.settings.description %}
+  {% assign video = section.settings.video %}
+{% endif %}
+
+<div class="{% unless template contains 'page.film' %}container{% endunless %}">
+  <div class="{% unless template contains 'page.film' %}sixteen columns{% endunless %}">
+    <div class="homepage_content section clearfix image_with_text image-text--align-{{ layout }}">
+      {% capture image_layout %}
+        <div class="eight columns relative  image_column {% if layout == 'left' %}alpha animate_left{% else %}omega animate_right{% endif %}">
+          <div class="my_play_btn"></div>
+          {% if section.settings.button_link != blank %}
+          <span class=" right_bottom_btn">
+          <a href="{% if section.settings.button_link != blank %}{{ section.settings.button_link }}{% else %}#{% endif %}"><img src="https://cdn.shopify.com/s/files/1/0158/2484/6912/files/right.jpg">
+          </a>
+          </span>
+          {% endif %}
+
+          {% if image != blank %}
+            <img  src="{{ image | img_url: '300x' }}"
+                  alt="{{ image.alt }}"
+                  data-src="{{ image | img_url: '2048x' }}"
+                  class="lazyload lazyload--fade-in my_video_open_section"
+                  data-sizes="auto"
+                  data-srcset=" {{ image | img_url: '2048x' }} 2048w,
+                                {{ image | img_url: '1600x' }} 1600w,
+                                {{ image | img_url: '1200x' }} 1200w,
+                                {{ image | img_url: '1000x' }} 1000w,
+                                {{ image | img_url: '800x' }} 800w,
+                                {{ image | img_url: '600x' }} 600w,
+                                {{ image | img_url: '400x' }} 400w"
+                   />
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+
+          <div class="video-wrapper"> <span class="close_menu_tag_video">X</span>
+            <iframe width="420" height="345" src="{{ video }}?rel=0" frameborder="0" allow="autoplay">
+            </iframe>
+          </div>
+        </div>
+      {% endcapture %}
+
+      {% if layout == 'left' %}
+        {{ image_layout }}
+      {% endif %}
+
+      <div class="seven columns content_column {% if layout == 'left' %}offset-by-one omega{% else %}offset-by-one-alternate alpha{% endif %} text-align--{{text_alignment}}">
+        {% if title != blank %}
+          <h3>
+            {{ title }}
+          </h3>
+        {% endif %}
+        {% if text != blank %}
+          {{ text }}
+        {% endif %}
+        {% if description != blank %}
+        <div class="description">
+          {{ description }}
+        </div>
+        {% endif %}
+        {% if button_label != blank %}
+          <a {% if button_link != blank %}href="{{ button_link }}"{% endif %} class="button secondary">
+            {{ button_label | escape }}
+          </a>
+        {% endif %}
+      </div>
+
+      {% if layout == 'right' %}
+        {{ image_layout }}
+      {% endif %}
+    </div>
+  </div>
+</div>

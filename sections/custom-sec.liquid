@@ -1,71 +1,131 @@
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% assign content_1 = product.metafields["global"]["PrdIngCarouselContent_1"] %}
+{% assign content_2 = product.metafields["global"]["PrdIngCarouselContent_2"] %}
+{% assign content_3 = product.metafields["global"]["PrdIngCarouselContent_3"] %}
+{% assign content_4 = product.metafields["global"]["PrdIngCarouselContent_4"] %}
+{% assign content_5 = product.metafields["global"]["PrdIngCarouselContent_5"] %}
+{% assign image_1 = product.metafields["global"]["PrdIngCarouselImage_1"] %}
+{% assign image_2 = product.metafields["global"]["PrdIngCarouselImage_2"] %}
+{% assign image_3 = product.metafields["global"]["PrdIngCarouselImage_3"] %}
+{% assign image_4 = product.metafields["global"]["PrdIngCarouselImage_4"] %}
+{% assign image_5 = product.metafields["global"]["PrdIngCarouselImage_5"] %}
+{% if content_1 != blank or content_2 != blank or content_3 != blank or content_4 != blank or content_5 != blank %}
 <div class="container-fluid">
   <div class="row">
 
-    <div class="col-md-4 desc relative" style="background-color: #000;">
-       {% if section.settings.box1 != blank %}
-       	<div class="box1"><img src="{{ section.settings.box1 | img_url: "large" }}"></div>
-       {% endif %}
-       {% if section.settings.content1 != blank %}
-      	 <div class="box-desc ">
-           <div class="item active">
-             {{ section.settings.content1 }}
-           </div>
-           <div class="item normal">
-             {{ section.settings.content2 }}
-           </div>
-         </div>
-         <span class="right_bottom_btn">
-           <a href="#">
-             <img src="{{ 'right.jpg' | asset_url }}" >
-           </a>
-         </span>
-       {% endif %}
+    <div class="one-third columns desc relative" style="background-color: #000;">
+
+      {% if content_1 != blank or content_2 != blank or content_3 != blank or content_4 != blank or content_5 != blank %}
+      <div class="box-desc">
+        {% if content_1 != blank %}
+        <div class="item active" data-id="first">
+          {{ content_1 }}
+        </div>
+        {% endif %}
+        {% if content_2 != blank %}
+        <div class="item normal" data-id="second">
+          {{ content_2 }}
+        </div>
+        {% endif %}
+        {% if content_3 != blank %}
+        <div class="item normal" data-id="third">
+          {{ content_3 }}
+        </div>
+        {% endif %}
+        {% if content_4 != blank %}
+        <div class="item normal" data-id="fourth">
+          {{ content_4 }}
+        </div>
+        {% endif %}
+        {% if content_5 != blank %}
+        <div class="item normal" data-id="fifth">
+          {{ content_5 }}
+        </div>
+        {% endif %}
+      </div>
+      {% comment %}
+      {% else %}
+      <div class="box-desc">
+        <div class="item active" data-id="first">
+          {{ section.settings.content1 }}
+        </div>
+        <div class="item normal" data-id="second">
+          {{ section.settings.content2 }}
+        </div>
+      </div>
+      {% endcomment %}
+      {% endif %}
     </div>
 
-    <div class="col-md-4">
-       {% if section.settings.box2 != blank %}
-       	<div class="box2"><img src="{{ section.settings.box2 | img_url: "large" }}"></div>
-       {% endif %}
-
-      <div class="title-wraper">
-        {% if section.settings.title2 != blank %}
-           <div class="box-title">{{ section.settings.title2 }}</div>
-         {% endif %}
-        {% if section.settings.subtitle != blank %}
-           <div class="box-subtitle">{{ section.settings.subtitle }}</div>
-         {% endif %}
+    <div class="two-thirds columns second">
+      {% if image_1 != blank or image_2 != blank or image_3 != blank or image_4 != blank or image_5 != blank %}
+      <div class="box2">
+        {% if image_1 != blank %}
+        <img src="{{ image_1 }}" class="active" data-id="first">
+        {% endif %}
+        {% if image_2 != blank %}
+        <img src="{{ image_2 }}" class="normal" data-id="second">
+        {% endif %}
+        {% if image_3 != blank %}
+        <img src="{{ image_3 }}" class="normal" data-id="third">
+        {% endif %}
+        {% if image_4 != blank %}
+        <img src="{{ image_4 }}" class="normal" data-id="fourth">
+        {% endif %}
+        {% if image_5 != blank %}
+        <img src="{{ image_5 }}" class="normal" data-id="fifth">
+        {% endif %}
       </div>
-    </div>
+      {% comment %}
+      {% else %}
+        <div class="box2">
+          <img src="{{ section.settings.box2 | img_url: "2048x" }}" class="active" data-id="first">
+          <img src="{{ section.settings.box3 | img_url: "2048x" }}" class="normal" data-id="second">
+        </div>
+      {% endcomment %}
+      {% endif %}
 
-    <div class="col-md-4">
-       {% if section.settings.box3 != blank %}
-       	<div class="box3"><img src="{{ section.settings.box3 | img_url: "large" }}"></div>
-       {% endif %}
-
-      <div class="title-wraper">
-        {% if section.settings.title3 != blank %}
-           <div class="box-title">{{ section.settings.title3 }}</div>
-         {% endif %}
-          {% if section.settings.subtitle2 != blank %}
-           <div class="box-subtitle">{{ section.settings.subtitle2 }}</div>
-         {% endif %}
-      </div>
+     <span class="right_bottom_btn">
+       <a href="#" class="right">
+         <img src="{{ 'arrow_right.svg' | asset_url }}" >
+       </a>
+     </span>
+     <div class="dot_nav">
+       <ul>
+          {% if content_1 != blank or content_2 != blank or content_3 != blank or content_4 != blank or content_5 != blank %}
+            {% if content_1 != blank or image_1 != blank %}
+              <li><a class="active" data-target="first">01</a></li>
+            {% endif %}
+            {% if content_2 != blank or image_2 != blank %}
+              <li><a class="normal" data-target="second">02</a></li>
+            {% endif %}
+            {% if content_3 != blank or image_3 != blank %}
+              <li><a class="normal" data-target="third">03</a></li>
+            {% endif %}
+            {% if content_4 != blank or image_4 != blank %}
+              <li><a class="normal" data-target="fourth">04</a></li>
+            {% endif %}
+            {% if content_5 != blank or image_5 != blank %}
+              <li><a class="normal" data-target="fifth">05</a></li>
+            {% endif %}
+          {% comment %}
+         {% else %}
+           <li><a class="active" data-target="first">01</a></li>
+           <li><a class="normal" data-target="second">02</a></li>
+          {% endcomment %}
+          {% endif %}
+       </ul>
+     </div>
     </div>
 
   </div>
 </div>
+{% endif %}
 
 {% schema %}
   {
     "name": "Product Custom",
     "class": "procustom",
     "settings": [
-      {
-        "type": "image_picker",
-        "id": "box1",
-        "label": "Box Image 1"
-      },
 	  {
         "type": "textarea",
         "id": "content1",
@@ -84,33 +144,9 @@
         "label": "Box Image 2"
       },
 	  {
-        "type": "text",
-        "id": "title2",
-        "label": "Title 2",
-        "default": "Talk about your brand"
-      },
-	  {
-        "type": "text",
-        "id": "subtitle",
-        "label": "Subtitle",
-        "default": "Subtitle"
-      },
-	  {
         "type": "image_picker",
         "id": "box3",
         "label": "Box Image 3"
-      },
-      {
-        "type": "text",
-        "id": "title3",
-        "label": "Title 3",
-        "default": "Talk about your brand"
-      },
-	  {
-        "type": "text",
-        "id": "subtitle2",
-        "label": "Subtitle",
-        "default": "Subtitle"
       }
     ],
     "presets": [

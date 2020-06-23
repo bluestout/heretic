@@ -25,7 +25,7 @@
     <div class="sixteen columns no-gutters">
      {% for block in section.blocks %} 
       <div class="section {{ block.settings.text_alignment }} clearfix">
-         <a {% if block.settings.button_link != blank %}href="{{ block.settings.button_link }}"{% endif %}>
+         {% comment %}<a {% if block.settings.button_link != blank %}href="{{ block.settings.button_link }}"{% endif %}>{% endcomment %}
         <div class="img-wrap">
           {% if block.settings.image %}
             <img  src="{{ block.settings.image.src | img_url: '300x' }}"
@@ -43,7 +43,7 @@
                   />
           {% endif %}
         </div>
-        </a>
+        {% comment %}</a>{% endcomment %}
         {% if block.settings.title != blank %}
           <h2 class="title {{ block.settings.text_alignment }}">
             {{ block.settings.title | escape }}
@@ -67,6 +67,7 @@
           </p>
         {% endif %}
       </div>
+      {% if block.settings.button_link != blank %}<a href="{{ block.settings.button_link }}" class="heretic-link"><img src="{{ 'white-arrow-right.png' | asset_url }}"></a>{% endif %}
      {% endfor %} 
     </div>
   </div>

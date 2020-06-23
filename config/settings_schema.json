@@ -422,10 +422,10 @@
         "content": "Logo"
       },
       {
-        "type": "font_picker",
+        "type": "text",
         "id": "logo__font",
         "label": "Font",
-        "default": "open_sans_n4"
+        "default": "styrene-reg"
       },
       {
         "type": "select",
@@ -457,14 +457,120 @@
         "unit": "px"
       },
       {
-        "type": "header",
-        "content": "Headings"
+        "type": "range",
+        "id": "logo_letter_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 10,
+        "default": 5,
+        "unit": "px"
       },
       {
-        "type": "font_picker",
+        "type": "header",
+        "content": "Slideshow Heading"
+      },
+      {
+        "type": "text",
+        "id": "slideshow_headline__font",
+        "label": "Font",
+        "default": "styrene-bold"
+      },
+      {
+        "type": "select",
+        "id": "slideshow_headline_font_style",
+        "label": "Capitalization",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "range",
+        "id": "slideshow_headline_font_size",
+        "label": "Base size",
+        "min": 20,
+        "max": 60,
+        "default": 50,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "slideshow_headline_letter_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 10,
+        "default": 8,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Slideshow Subheading"
+      },
+      {
+        "type": "text",
+        "id": "slideshow_subheadline__font",
+        "label": "Font",
+        "default": "styrene-light"
+      },
+      {
+        "type": "select",
+        "id": "slideshow_subheadline_font_style",
+        "label": "Capitalization",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "range",
+        "id": "slideshow_subheadline_font_size",
+        "label": "Base size",
+        "min": 20,
+        "max": 50,
+        "default": 24,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "slideshow_subheadline_letter_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 10,
+        "default": 3,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Headings",
+        "info": "Title for collection, product(collection, product page), contact, CMS page sections"
+      },
+      {
+        "type": "text",
         "id": "headline__font",
         "label": "Font",
-        "default": "open_sans_n4"
+        "default": "styrene-bold"
       },
       {
         "type": "select",
@@ -534,13 +640,81 @@
       },
       {
         "type": "header",
-        "content": "Main menu and buttons"
+        "content": "Sub Headings",
+        "info": "Used for Note section heading for Collection, About, FAQ pages as well."
       },
       {
-        "type": "font_picker",
+        "type": "text",
+        "id": "sub_headline__font",
+        "label": "Font",
+        "default": "styrene-medium"
+      },
+      {
+        "type": "select",
+        "id": "sub_headline_font_style",
+        "label": "Capitalization",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "range",
+        "id": "sub_headline_font_size",
+        "label": "Base size(Desktop)",
+        "min": 18,
+        "max": 60,
+        "default": 26,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "sub_headline_letter_spacing",
+        "label": "Letter spacing(Desktop)",
+        "min": 0,
+        "max": 6,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "sub_headline_font_size_mobile",
+        "label": "Base size(Mobile)",
+        "min": 12,
+        "max": 40,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "sub_headline_letter_spacing_mobile",
+        "label": "Letter spacing(Mobile)",
+        "min": 0,
+        "max": 6,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Main menu and buttons",
+        "info": "Navigation, buttons and links"
+      },
+      {
+        "type": "text",
         "id": "nav__font",
         "label": "Font",
-        "default": "open_sans_n4"
+        "default": "styrene-bold"
       },
       {
         "type": "select",
@@ -567,7 +741,7 @@
         "id": "nav_font_size",
         "label": "Main menu base size",
         "min": 12,
-        "max": 20,
+        "max": 25,
         "default": 15,
         "unit": "px"
       },
@@ -579,6 +753,56 @@
         "max": 6,
         "default": 0,
         "unit": "px"
+      },
+      {
+        "type": "text",
+        "id": "sub_nav__font",
+        "label": "Sub Nav Font",
+        "default": "styrene-reg"
+      },
+      {
+        "type": "select",
+        "id": "sub_nav_font_style",
+        "label": "Sub menu capitalization",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "range",
+        "id": "sub_nav_font_size",
+        "label": "Sub menu base size",
+        "min": 12,
+        "max": 25,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "sub_nav_letter_spacing",
+        "label": "Sub menu letter spacing",
+        "min": 0,
+        "max": 6,
+        "default": 5,
+        "unit": "px"
+      },
+      {
+        "type": "text",
+        "id": "button__font",
+        "label": "Button Font",
+        "default": "styrene-reg"
       },
       {
         "type": "select",
@@ -610,14 +834,23 @@
         "unit": "px"
       },
       {
+        "type": "range",
+        "id": "button_letter_spacing",
+        "label": "Button letter spacing",
+        "min": 0,
+        "max": 6,
+        "default": 2,
+        "unit": "px"
+      },
+      {
         "type": "header",
         "content": "Regular text"
       },
       {
-        "type": "font_picker",
+        "type": "text",
         "id": "regular__font",
         "label": "Font",
-        "default": "open_sans_n4"
+        "default": "styrene-light"
       },
       {
         "type": "select",
@@ -650,26 +883,173 @@
       },
       {
         "type": "range",
+        "id": "regular_letter_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 6,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Footer",
+        "info": "Footer links"
+      },
+      {
+        "type": "text",
+        "id": "footer__font",
+        "label": "Font",
+        "default": "styrene-thin"
+      },
+      {
+        "type": "range",
         "id": "footer_font_size",
         "label": "Footer font size",
+        "info": "This will be applied for fragrance notes for products on collection page",
+        "min": 12,
+        "max": 20,
+        "default": 12,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "footer_letter_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 6,
+        "default": 2,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Input",
+        "info": "Text size of input boxes"
+      },
+      {
+        "type": "text",
+        "id": "input__font",
+        "label": "Font",
+        "default": "styrene-light"
+      },
+      {
+        "type": "range",
+        "id": "input_font_size",
+        "label": "Input font size",
         "min": 12,
         "max": 20,
         "default": 14,
         "unit": "px"
       },
       {
-        "type": "header",
-        "content": "Banner headings"
+        "type": "range",
+        "id": "input_letter_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 6,
+        "default": 0,
+        "unit": "px"
       },
       {
-        "type": "font_picker",
-        "id": "slideshow_headline__font",
+        "type": "header",
+        "content": "Help Text",
+        "info": "small text size such as newsletter heading, Follow link"
+      },
+      {
+        "type": "text",
+        "id": "help__font",
         "label": "Font",
-        "default": "open_sans_n4"
+        "default": "styrene-medium"
       },
       {
         "type": "range",
-        "id": "slideshow_headline_size",
+        "id": "help_font_size",
+        "label": "Font size",
+        "min": 12,
+        "max": 20,
+        "default": 12,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "help_letter_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 6,
+        "default": 3,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Paragraph Heading",
+        "info": "Accordion title such as FAQ, Privacy Policy, Terms pages"
+      },
+      {
+        "type": "text",
+        "id": "paragraph_title__font",
+        "label": "Font",
+        "default": "styrene-reg"
+      },
+      {
+        "type": "range",
+        "id": "paragraph_title_font_size",
+        "label": "Font size",
+        "min": 12,
+        "max": 24,
+        "default": 20,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "paragraph_title_letter_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 6,
+        "default": 4,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Article Title",
+        "info": "Font for I Am Heretic, Blog, Article titles"
+      },
+      {
+        "type": "text",
+        "id": "article_title__font",
+        "label": "Font",
+        "default": "styrene-medium"
+      },
+      {
+        "type": "range",
+        "id": "article_title_font_size",
+        "label": "Font size",
+        "min": 12,
+        "max": 20,
+        "default": 18,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "article_title_letter_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 6,
+        "default": 2,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Banner headings",
+        "info": "Font for heading on the Banner such as I Am Heretic, FAQ, Privacy Policy, Terms, etc"
+      },
+      {
+        "type": "text",
+        "id": "banner_headline__font",
+        "label": "Font",
+        "default": "styrene-reg"
+      },
+      {
+        "type": "range",
+        "id": "banner_headline_size",
         "label": "Base size",
         "min": 20,
         "max": 60,
@@ -677,24 +1057,34 @@
         "unit": "px"
       },
       {
+        "type": "range",
+        "id": "banner_headline_letter_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 10,
+        "default": 5,
+        "unit": "px"
+      },
+      {
         "type": "checkbox",
-        "id": "slideshow_headline_shadow",
+        "id": "banner_headline_shadow",
         "label": "Text shadow",
         "default": true
       },
       {
         "type": "header",
-        "content": "Banner subheadings"
+        "content": "Banner subheadings",
+        "info": "Font for sub heading on the Banner such as I Am Heretic, FAQ, Privacy Policy, Terms, etc"
       },
       {
-        "type": "font_picker",
-        "id": "slideshow_subtitle__font",
+        "type": "text",
+        "id": "banner_subtitle__font",
         "label": "Font",
-        "default": "open_sans_n4"
+        "default": "styrene-reg"
       },
       {
         "type": "select",
-        "id": "slideshow_subtitle_font_style",
+        "id": "banner_subtitle_font_style",
         "label": "Capitalization",
         "options": [
           {
@@ -714,7 +1104,7 @@
       },
       {
         "type": "range",
-        "id": "slideshow_subtitle_size",
+        "id": "banner_subtitle_size",
         "label": "Base size",
         "min": 16,
         "max": 60,
@@ -722,10 +1112,171 @@
         "unit": "px"
       },
       {
+        "type": "range",
+        "id": "banner_subtitle_letter_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 10,
+        "default": 2,
+        "unit": "px"
+      },
+      {
         "type": "checkbox",
-        "id": "slideshow_subtitle_shadow",
+        "id": "banner_subtitle_shadow",
         "label": "Text shadow",
         "default": true
+      },
+      {
+        "type": "header",
+        "content": "Product Tab(Desktop)"
+      },
+      {
+        "type": "select",
+        "id": "prod_tab_font_family_desktop",
+        "label": "Font",
+        "options": [
+          {
+            "value": "styrene-thin",
+            "label": "Styrene Thin"
+          },
+          {
+            "value": "styrene-light",
+            "label": "Styrene Light"
+          },
+          {
+            "value": "styrene-reg",
+            "label": "Styrene Regular"
+          },
+          {
+            "value": "styrene-medium",
+            "label": "Styrene Medium"
+          },
+          {
+            "value": "styrene-bold",
+            "label": "Styrene Bold"
+          },
+          {
+            "value": "OrpheusPro",
+            "label": "OrpheusPro"
+          }
+        ],
+        "default": "OrpheusPro"
+      },
+      {
+        "type": "select",
+        "id": "prod_tab_text_transform_desktop",
+        "label": "Capitalization",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          }
+        ],
+        "default": "uppercase"
+      },
+      {
+        "type": "range",
+        "id": "prod_tab_font_size_desktop",
+        "label": "Size",
+        "min": 12,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "prod_tab_letter_spacing_desktop",
+        "label": "Letter Spacing",
+        "min": 0,
+        "max": 10,
+        "step": 0.5,
+        "unit": "px",
+        "default": 2
+      },
+      {
+        "type": "header",
+        "content": "Product Tab(Mobile)"
+      },
+      {
+        "type": "select",
+        "id": "prod_tab_font_family_mobile",
+        "label": "Font",
+        "options": [
+          {
+            "value": "styrene-thin",
+            "label": "Styrene Thin"
+          },
+          {
+            "value": "styrene-light",
+            "label": "Styrene Light"
+          },
+          {
+            "value": "styrene-reg",
+            "label": "Styrene Regular"
+          },
+          {
+            "value": "styrene-medium",
+            "label": "Styrene Medium"
+          },
+          {
+            "value": "styrene-bold",
+            "label": "Styrene Bold"
+          },
+          {
+            "value": "OrpheusPro",
+            "label": "OrpheusPro"
+          }
+        ],
+        "default": "OrpheusPro"
+      },
+      {
+        "type": "select",
+        "id": "prod_tab_text_transform_mobile",
+        "label": "Capitalization",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          }
+        ],
+        "default": "uppercase"
+      },
+      {
+        "type": "range",
+        "id": "prod_tab_font_size_mobile",
+        "label": "Size",
+        "min": 12,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "prod_tab_letter_spacing_mobile",
+        "label": "Letter Spacing",
+        "min": 0,
+        "max": 10,
+        "step": 0.5,
+        "unit": "px",
+        "default": 2
       }
     ]
   },
@@ -1053,6 +1604,54 @@
     ]
   },
   {
+    "name": "Product",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Overlay"
+      },
+      {
+        "type": "select",
+        "id": "text_overlay_visible_for",
+        "label": "Overlay Enable For:",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "both",
+            "label": "Both(Desktop & Mobile)"
+          },
+          {
+            "value": "mobile",
+            "label": "Mobile"
+          },
+          {
+            "value": "desktop",
+            "label": "Desktop"
+          }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "color",
+        "id": "text_overlay_color",
+        "label": "Background Color",
+        "default": "rgba(0,0,0,1)"
+      },
+      {
+        "type": "range",
+        "id": "text_overlay_opacity",
+        "label": "Background Opacity",
+        "min": 0,
+        "max": 1,
+        "step": 0.1,
+        "default": 0.3
+      }
+    ]
+  },
+  {
     "name": "Cart",
     "settings": [
       {
@@ -1275,6 +1874,12 @@
         "id": "facebook_link",
         "label": "Facebook link",
         "info": "https:\/\/facebook.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "spotify_link",
+        "label": "Spotify link",
+        "info": "https:\/\/spotify.com\/"
       },
       {
         "type": "text",

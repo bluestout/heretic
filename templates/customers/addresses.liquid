@@ -17,12 +17,13 @@
     <div class="order-history-tabs">
       <ul>
         <li><a href="/account" class="dashboard_full">DASHBOARD</a></li>
-        <li><a href="/account" class="full_recover_fully">ORDER HISTORY</a></li>
-        <li><a href="/account/addresses" class="full_recover_fully active">ACCOUNT DETAILS</a></li>
+        <li class="active"><a href="/account/addresses" class="full_recover_fully active">ACCOUNT DETAILS</a></li>
+        <li><a href="/account/logout" class="full_recover_fully">LOGOUT</a></li>
       </ul>
+      <span class="icon-arrow-down mobile-only"></span>
     </div>
     <div class="twelve columns order_history_title">
-      <h4>ADDRESSES <div id="action" class="action_link action_add note"><a href="#" class="action_button" style="display:block" onclick="Shopify.CustomerAddress.toggleNewForm(); return false;">{{ 'customer.addresses.add_new' | t }}</a></div></h4>
+      <h4>ADDRESSES <div id="action" class="action_link action_add note"><a href="#" class="button" style="display:block" onclick="Shopify.CustomerAddress.toggleNewForm(); return false;"><span class="desktop-only">{{ 'customer.addresses.add_new' | t }}</span><span class="mobile-only">{{ 'customer.addresses.add_new' | t }}</span></a></div></h4>
       <div id="add_address" class="customer_address edit_address" style="display:none;">
         {% form 'customer_address', customer.new_address %}
           <h6 id="add_address_title">{{ 'customer.addresses.add_new' | t }}</h6>

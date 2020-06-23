@@ -1,0 +1,80 @@
+{% for block in section.blocks %}
+<div class="one-third column {% if forloop.index == 1 %}alpha{% elsif forloop.index == 3 %}omega{% endif %}">
+  <div class="beton-vernon-image">
+  {% include 'include-heretic-item', type: 'block' %}
+  </div>
+</div>
+{% endfor %}
+
+{% schema %}
+  {
+    "name": "I am Heretic",
+    "class": "headline-section featured-content-section",
+    "settings": [
+    ],
+    "blocks": [
+      {
+        "type": "Item",
+        "name": "Item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "info": "600 x 600px recommended"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "DR. Will Cole"
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Content"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Link"
+          },
+          {
+            "type": "select",
+            "id": "text_size",
+            "label": "Text size",
+            "options": [
+              {
+                "value": "regular_text",
+                "label": "Regular"
+              },
+              {
+                "value": "featured_text",
+                "label": "Large"
+              }
+            ],
+            "default": "featured_text"
+          },
+          {
+            "type": "select",
+            "id": "text_alignment",
+            "label": "Text alignment",
+            "options": [
+              {
+                "value": "align_left",
+                "label": "Left"
+              },
+              {
+                "value": "center",
+                "label": "Center"
+              }
+            ],
+            "default": "center"
+          }
+        ]
+      }
+    ],
+    "presets": [
+    ]
+  }
+{% endschema %}

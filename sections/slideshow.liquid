@@ -1,14 +1,12 @@
+<div class="{{ section.settings.display_on }}">
 {% if section.blocks.size > 0 %}
 <div class="slider-bullet"></div>
 {% assign x = 1 %}
 {% assign y = 0 %}
-<div class="number_roots" style="display:none;">
-{% for block in section.blocks %}
-<!--   <li><a href="javascript:void(0);" class="change_slide_sect" id="{% increment y %}">0{% increment x %}</a></li>  -->
-{% endfor %}
+<div class="number_roots {% if section.settings.display_on == 'mobile-only' %}mobile{% else %}desktop{% endif %}" style="display:none;">
 </div>
 {% assign z = 0 %}
-<section id="homepage_slider-{{section.id}}" class="parallax-banner flexslider homepage_slider animation--fade {% if section.settings.image_stretch == false %}sixteen columns{% endif %} parallax_effect--{{ section.settings.parallax_effect }} slider-loading"
+<section id="homepage_slider-{{section.id}}" class="parallax-banner flexslider homepage_slider {% if section.settings.display_on == 'mobile-only' %}mobile{% else %}desktop{% endif %} animation--fade {% if section.settings.image_stretch == false %}sixteen columns{% endif %} parallax_effect--{{ section.settings.parallax_effect }} slider-loading"
         data-slider-id="homepage_slider-{{section.id}}"
         data-slideshow-animation="fade"
         data-slideshow-speed="{{section.settings.slideshow_speed}}">
@@ -17,6 +15,11 @@
       {% for block in section.blocks %}
           <li {{ block.shopify_attributes }} data-block-id="{{block.id}}" id="{% increment z %}">
             <div id="slider-{{ block.id }}" class="slide">
+              {% if block.type == 'video' %}
+              <div class="video_slide">
+                <iframe class="" src="https://player.vimeo.com/video/{{ block.settings.video_id }}?background=1&autoplay=1&api=1" width="100%" height="100%" style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+              </div>
+              {% else %}
               {% capture i %}{% cycle "1", "2" %}{% endcapture %}
               <div class="lazyload bcg {% if block.settings.image == nil %}bcg-placeholder{% endif %}"
                 {% if section.settings.parallax_effect %}
@@ -37,7 +40,9 @@
                   data-anchor-target="#slider-{{ block.id }}"
                   {% endif %}
                   >
-                        <div class="medium-up--hide lefT_C_custom">Heretic Parfum</div>
+                  {% if block.settings.enable_water_mark %}
+                    <div class="lefT_C_custom">{{ block.settings.water_mark_text }}</div>
+                  {% endif %}
                   <div class="hsContainer">
                     {% if section.settings.parallax_effect %}
                       <noscript>
@@ -73,9 +78,11 @@
                         {% endif %}
                         <div class="container">
 
+                        {% comment %}
 						{% if block.settings.layer_image != blank %}
 						<div class="slider-layer-image"><img src="{{ block.settings.layer_image | img_url: '720x720' }}"></div>
 						{% endif %}
+                        {% endcomment %}
 
                           <div class="columns {% if block.settings.text_position == 'left' %} eight offset-by-one {% elsif block.settings.text_position == 'right' %} eight offset-by-eight {% else %} twelve offset-by-two {% endif %} align_{{ block.settings.text_alignment }}">
                             {% if forloop.first == true and block.settings.title != blank %}
@@ -102,14 +109,15 @@
                       </div>
                   </div>
               </div>
+              {% endif %}
             </div>
           </li>
         {% endfor %}
+      <span class="icon-circle-left rightbtn"></span>
     </ul>
-
-       				<div class="slider-arrows-custom">
-                      <div class="inner-arrows"></div>
-                    </div>
+    <div class="slider-arrows-custom">
+      <div class="inner-arrows"></div>
+    </div>
 
   </section>
 {% endif %}
@@ -124,7 +132,7 @@
   @media only screen and (max-width: 798px) {
     {% if settings.slideshow_images_crop %}
       #homepage_slider-{{ section.id }} .hsContainer {
-        height: {{ section.settings.parallax_image_height | divided_by: 2 }}px;
+        height: 600px;
       }
     {% else %}
       #homepage_slider-{{ section.id }} .hsContainer {
@@ -134,6 +142,15 @@
     {% endif %}
   }
 </style>
+<script>
+  $(".leftbtn").click(function(){
+    $(".flex-next").trigger("click");
+  });
+  $(".rightbtn").click(function(){
+    $(".flex-prev").trigger("click");
+  });
+</script>
+</div>
 
 {% schema %}
 {
@@ -150,6 +167,25 @@
       "step": 1,
       "default": 6,
       "unit": "sec"
+    },
+    {
+      "type": "select",
+      "id": "display_on",
+      "label": "Display On:",
+      "options": [
+        {
+          "value": "",
+          "label": "Both"
+        },
+        {
+          "value": "desktop-only",
+          "label": "Desktop Only"
+        },
+        {
+          "value": "mobile-only",
+          "label": "Mobile Only"
+        }
+      ]
     },
     {
       "type": "header",
@@ -175,18 +211,13 @@
   "blocks": [
     {
       "type": "image",
-      "name": "Slide",
+      "name": "Image Slide",
       "settings": [
         {
           "type": "image_picker",
           "id": "image",
           "label": "Image",
           "info": "1600 x 1000px recommended"
-        },
-		{
-          "type": "image_picker",
-          "id": "layer_image",
-          "label": "Layer Image"
         },
         {
           "type": "text",
@@ -249,6 +280,33 @@
             }
           ],
           "default": "center"
+        },
+        {
+          "type": "header",
+          "content": "Water Mark"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_water_mark",
+          "label": "Enable Water Mark",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "water_mark_text",
+          "label": "Text",
+          "default": "Heretic Parfum"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Video Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "video_id",
+          "label": "Vimeo Video ID"
         }
       ]
     }
@@ -285,11 +343,3 @@
   }]
 }
 {% endschema %}
-
-
-
-<script>
-    $(".leftbtn").click(function(){
-    $(".flex-next ").trigger("click");
-  });
-</script>

@@ -18,11 +18,70 @@
   {% assign button_link = section.settings.button_link %}
 {% endif %}
 
-<div class="container">
-  <div class="sixteen columns">
+<div class="{% if template contains 'index' %}container{% endif %}">
+  <div class="{% if template contains 'index' %}sixteen columns{% endif %}">
     <div class="homepage_content section clearfix image_with_text image-text--align-{{ layout }}">
       {% capture image_layout %}
         <div class="eight columns image_column {% if layout == 'left' %}alpha animate_left{% else %}omega animate_right{% endif %}">
+
+
+		{% comment %}
+
+		  <div  class="lazyload bcg {% if section.settings.image == nil %}bcg-placeholder{% endif %}"
+			  {% if section.settings.parallax_effect %}
+				{% if section.settings.image != nil %}
+				  data-bgset="  {{ section.settings.image | img_url: '2048x' }} 2048w,
+								{{ section.settings.image | img_url: '1600x' }} 1600w,
+								{{ section.settings.image | img_url: '1200x' }} 1200w,
+								{{ section.settings.image | img_url: '1000x' }} 1000w,
+								{{ section.settings.image | img_url: '800x' }} 800w,
+								{{ section.settings.image | img_url: '600x' }} 600w,
+								{{ section.settings.image | img_url: '400x' }} 400w"
+				  data-sizes="100vw"
+				{% else %}
+				  style="background-image:url({{ 'placeholder.svg' | asset_url }})"
+				{% endif %}
+				data-bottom-top="background-position: 50% 10vh;"
+				data-top-bottom="background-position: 50% -10vh;"
+			  {% endif %}
+			  >
+			  <div class="hsContainer">
+				{% if section.settings.parallax_effect %}
+				  <noscript>
+				   <img   alt="{{ section.settings.image.alt }}"
+						  src="{{ section.settings.image | img_url: '2048x' }}"
+						  class="image__fallback"
+						  />
+				  </noscript>
+				{% endif %}
+				<img  alt="{{ section.settings.image.alt }}"
+					  {% if section.settings.image != nil %}
+						src="{{ section.settings.image | img_url: '300x' }}"
+						data-src="{{ section.settings.image | img_url: '2048x' }}"
+						class="lazyload lazyload--fade-in hsContainer__image"
+						sizes="100vw"
+						srcset="  {{ section.settings.image | img_url: '2048x' }} 2048w,
+								  {{ section.settings.image | img_url: '1600x' }} 1600w,
+								  {{ section.settings.image | img_url: '1200x' }} 1200w,
+								  {{ section.settings.image | img_url: '1000x' }} 1000w,
+								  {{ section.settings.image | img_url: '800x' }} 800w,
+								  {{ section.settings.image | img_url: '600x' }} 600w,
+								  {{ section.settings.image | img_url: '400x' }} 400w"
+					  {% else %}
+						src="{{ 'placeholder.svg' | asset_url }}"
+						class="hsContainer__image"
+					  {% endif %}
+					   />
+
+			  </div>
+		  </div>
+
+
+		{% endcomment %}
+
+
+
+
           {% if image != blank %}
             <img  src="{{ image | img_url: '300x' }}"
                   alt="{{ image.alt }}"
@@ -40,6 +99,10 @@
           {% else %}
             {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
           {% endif %}
+
+
+
+
         </div>
       {% endcapture %}
 
@@ -57,7 +120,7 @@
           {{ text }}
         {% endif %}
         {% if button_label != blank %}
-          <a {% if button_link != blank %}href="{{ button_link }}"{% endif %} class="action_button about_read_button">
+          <a {% if button_link != blank %}href="{{ button_link }}"{% endif %} class="button about_read_button {% if template contains 'about' %}secondary{% endif %}">
             {{ button_label | escape }}
           </a>
         {% endif %}

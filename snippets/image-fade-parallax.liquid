@@ -1,0 +1,104 @@
+<style>
+{% if settings.text_overlay_visible_for == 'desktop' or settings.text_overlay_visible_for == 'both' %}
+  .singlepro-image .text__overlay-wrapper .text__overlay {
+    color: #FFF;
+  }
+  .singlepro-image .text__overlay-wrapper .text__overlay > div {
+    position: relative;
+  }
+  .singlepro-image .text__overlay-wrapper .text__overlay h1,
+  .singlepro-image .text__overlay-wrapper .text__overlay h2,
+  .singlepro-image .text__overlay-wrapper .text__overlay h3,
+  .singlepro-image .text__overlay-wrapper .text__overlay h4,
+  .singlepro-image .text__overlay-wrapper .text__overlay h5,
+  .singlepro-image .text__overlay-wrapper .text__overlay h6 {
+    color: #FFF;
+  }
+  .singlepro-image .text__overlay-wrapper .text__overlay:before {
+    background: {{ settings.text_overlay_color }};
+    opacity: {{ settings.text_overlay_opacity }};
+    display: block;
+  }
+{% endif %}
+{% if section.settings.text_overlay_visible_for == 'mobile' or section.settings.text_overlay_visible_for == 'both' %}
+  @media only screen and (max-width: 798px) {
+    .singlepro-image .text__overlay-wrapper .text__overlay {
+      color: #FFF;
+    }
+    .singlepro-image .text__overlay-wrapper .text__overlay > div {
+      position: relative;
+    }
+    .singlepro-image .text__overlay-wrapper .text__overlay h1,
+    .singlepro-image .text__overlay-wrapper .text__overlay h2,
+    .singlepro-image .text__overlay-wrapper .text__overlay h3,
+    .singlepro-image .text__overlay-wrapper .text__overlay h4,
+    .singlepro-image .text__overlay-wrapper .text__overlay h5,
+    .singlepro-image .text__overlay-wrapper .text__overlay h6 {
+      color: #FFF;
+    }
+    .singlepro-image .text__overlay-wrapper .text__overlay:before {
+      background: {{ settings.text_overlay_color }};
+      opacity: {{ settings.text_overlay_opacity }};
+      display: block;
+    }
+  }
+{% endif %}
+</style>
+
+{% assign image = image %}
+<section class="image-banner-fadeIn image-banner-fadeIn-main parallax-banner parallax-slide slide parallax_effect--true">
+  <div  class="lazyload bcg {% if image == blank %}bcg-placeholder{% endif %}"
+        {% if image != blank %}
+          data-bgset="  {{ image }} 2048w,
+                        {{ image }} 1600w,
+                        {{ image }} 1200w,
+                        {{ image }} 1000w,
+                        {{ image }} 800w,
+                        {{ image }} 600w,
+                        {{ image }} 400w"
+          data-sizes="100vw"
+        {% else %}
+          style="background-image:url({{ 'placeholder.svg' | asset_url }})"
+        {% endif %}
+        data-bottom-top="background-position: 50% 10vh;"
+        data-top-bottom="background-position: 50% -10vh;"
+      >
+      <div class="hsContainer">
+          <noscript>
+           <img   alt="{{ image.alt }}"
+                  src="{{ image }}"
+                  class="image__fallback"
+                  />
+          </noscript>
+        <img  alt="{{ image.alt }}"
+              {% if image != nil %}
+                src="{{ image }}"
+                data-src="{{ image }}"
+                class="lazyload lazyload--fade-in hsContainer__image"
+                sizes="100vw"
+                srcset="  {{ image }} 2048w,
+                          {{ image }} 1600w,
+                          {{ image }} 1200w,
+                          {{ image }} 1000w,
+                          {{ image }} 800w,
+                          {{ image }} 600w,
+                          {{ image }} 400w"
+              {% else %}
+                src="{{ 'placeholder.svg' | asset_url }}"
+                class="hsContainer__image"
+              {% endif %}
+               />
+        <div class="hsContent">
+          <div class="container text__overlay-wrapper">
+            <div class="columns text__overlay twelve align_center">
+              <div>
+                {% if product.metafields["global"]["PrdImageAltText"] != blank %}
+                {{ product.metafields["global"]["PrdImageAltText"] }}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>

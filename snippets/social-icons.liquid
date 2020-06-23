@@ -70,4 +70,10 @@
       <span class="icon-mail"></span>
     </a>
   {% endif %}
+
+  {% if settings.spotify_link != '' %}
+    <a href="{{ settings.spotify_link }}" title="{{ shop.name }} on Spotify" class="ss-icon" rel="me" target="_blank">
+      <i class="fab fa-spotify"></i>
+    </a>
+  {% endif %}
 </div>

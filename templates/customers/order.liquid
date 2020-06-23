@@ -16,10 +16,11 @@
   <div class="section clearfix">
     <div class="order-history-tabs">
       <ul>
-        <li><a href="/account" class="dashboard_full">DASHBOARD</a></li>
-        <li><a href="/account" class="full_recover_fully active">ORDER HISTORY</a></li>
+        <li class="active"><a href="/account" class="dashboard_full active">DASHBOARD</a></li>
         <li><a href="/account/addresses" class="full_recover_fully">ACCOUNT DETAILS</a></li>
+        <li><a href="/account/logout" class="full_recover_fully">LOGOUT</a></li>
       </ul>
+      <span class="icon-arrow-down mobile-only"></span>
     </div>
     <div class="twelve columns">
 
@@ -49,7 +50,9 @@
           {% for line_item in order.line_items %}
           <tr id="{{ line_item.id }}">
             <td>
-              <img src="http://cdn.shopify.com/s/files/1/0158/2484/6912/{{line_item.product.featured_image}}" class="order_img_featured">{{ line_item.title | link_to: line_item.product.url }}
+              <img src="http://cdn.shopify.com/s/files/1/0158/2484/6912/{{line_item.product.featured_image}}" class="order_img_featured">
+              {{ line_item.title | link_to: line_item.product.url }}
+              {% include 'mw_PO_order' with line_item %}
               {% if line_item.fulfillment %}
                 <div class="note">
                   {% assign created_at = line_item.fulfillment.created_at | date: "%b %d" %}

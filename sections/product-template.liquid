@@ -5,24 +5,24 @@
     }
   {% endstyle %}
 {% endif %}
-<div class="sixteen columns" data-initial-width="sixteen" data-sidebar-width="twelve">
+<div class="" data-initial-width="" data-sidebar-width="twelve">
   <div class="product-{{ product.id }}">
-    <div class="section product_section js-product_section clearfix
+    <div class="row section product_section js-product_section
     {% if product.images.size > 1 %} thumbnail_position--{{settings.thumbnail_position}} {% endif %} product_slideshow_animation--{{settings.product_slideshow_animation}}"
        data-thumbnail="{{settings.thumbnail_position}}"
        data-slideshow-animation="{{settings.product_slideshow_animation}}"
        data-slideshow-speed="{{settings.slideshow_speed}}"
        itemscope itemtype="http://schema.org/Product">
 
-      <div class="nine columns {% if product-images == blank %}{% if section.settings.product_images_position == 'left' %}alpha{% else %}omega{% endif %}{% endif %} {% if section.settings.product_images_position == 'right' %}mobile_only{% endif %}" data-initial-width="nine" data-sidebar-width="seven">
+      <div class="one-half columns {% if product-images == blank %}{% if section.settings.product_images_position == 'left' %}alpha{% else %}omega{% endif %}{% endif %} {% if section.settings.product_images_position == 'right' %}mobile_only{% endif %}" data-initial-width="" data-sidebar-width="seven">
         {% include 'product-images' %}
       </div>
 
-      <div class="seven columns {% if section.settings.product_images_position == 'left' %}omega{% else %}alpha{% endif %}" data-initial-width="seven" data-sidebar-width="five">
+      <div class="one-half columns {% if section.settings.product_images_position == 'left' %}omega{% else %}alpha{% endif %}" data-initial-width="" data-sidebar-width="five">
       <div class="p_meta_detail">
         {% assign collection_handles = product.collections | map: 'handle' %}
         {% assign variant = product.selected_or_first_available_variant %}
-        <h1 class="product_name" itemprop="name">{{ product.title }}</h1>
+        <h1 class="product_name" itemprop="name">{{ product.title | strip_html }}</h1>
 
         {% if section.settings.display_vendor %}
           <p class="vendor">
@@ -80,6 +80,78 @@
          {% endif %}
         {% endif %}
 
+        
+        
+   <!--     <ul class="tabs ">
+<li><a class=" toggles active" href="#tab1">Tab 1</a></li>
+<li><a href="#tab2">Tab 2</a></li>
+<li><a href="#tab3">Tab 3</a></li>
+</ul>
+<ul class="tabs-content">
+<li class="active" id="tab1">
+<p>Tab 1 content goes here.</p>
+
+</li>
+<li id="tab2">
+<p>Tab 2 content goes here.</p>
+</li>
+<li id="tab3">
+<p>Tab 3 content goes here.</p>
+</li>
+</ul>
+        
+        
+        
+        
+        
+        
+        <div class="tabs" data-design="toggles">
+
+   <div class="titles">
+      <h5>Shipping Policy</h5>
+      <h5>Refund Policy</h5>
+   </div>
+
+   <div class="contents">
+      <div class="tab">
+	<p>Your shipping policy content here.</p>
+      </div>
+      <div class="tab">
+	<p>Your refund policy here.</p>
+      </div>
+   </div>
+
+</div> -->
+        
+        
+               
+        
+        
+        <div class="product-tabs js-product-tabs">
+          {% if  product.metafields["global"]["Tab1_Description"]  %}
+        	<div class="product-tab" id='product-tab'>
+              <div class="product-tab-title" itemprop="title"><b>{{ product.metafields["global"]["Tab1_Title"] }}</b><span class="icon-toggle"></span></div>
+         	    <div class="product-tab-content" itemprop="content">{{ product.metafields["global"]["Tab1_Description"] }}</div>
+        	</div>
+          {% endif %}
+          {% if  product.metafields["global"]["Tab2_Description"]  %}
+            <div class="product-tab" id='product-tab'>
+          		<div class="product-tab-title" itemprop="title"><b>{{ product.metafields["global"]["Tab2_Title"] }}</b><span class="icon-toggle"></span></div>
+         	    <div class="product-tab-content" itemprop="content">{{ product.metafields["global"]["Tab2_Description"] }}</div>
+        	</div>
+          {% endif %}
+          {% if  product.metafields["global"]["Tab3_Description"]  %}
+                  	<div class="product-tab" id='product-tab'>
+          		<div class="product-tab-title" itemprop="title"><b>{{ product.metafields["global"]["Tab3_Title"] }}</b><span class="icon-toggle"></span></div>
+         	    <div class="product-tab-content" itemprop="content">{{ product.metafields["global"]["Tab3_Description"] }}</div>
+        	</div>
+          {% endif %}
+        </div>
+        
+        
+        
+
+        
         {% unless collection_handles contains 'coming-soon' %}
           {% include 'product-form' with 'product' %}
         {% endunless %}
@@ -99,6 +171,8 @@
         {% if section.settings.display_collections or section.settings.display_tags or section.settings.display_type %}
         {% endif %}
 
+
+        
         <div class="meta">
 
           {% include "social-buttons" with "product" %}
@@ -146,7 +220,8 @@
           {% include 'product-images' %}
         </div>
       {% endif %}
-    </div>
+
+</div>
 
     {% comment %}
     {% if product.description contains "<!-- split -->"  %}
@@ -165,7 +240,7 @@
     </div>
   </div>
 
-<div class="pro-tabs">{% include 'product-tabs' %}</div>
+<div class="pro-tabs clearfix">{% include 'product-tabs' %}</div>
 
 {% include 'ingredient-popup' %}
 
@@ -291,6 +366,15 @@
       "type": "page",
       "id": "page",
       "label": "Select Content"
+    },
+    {
+      "type": "header",
+      "content": "Shipping Information"
+    },
+    {
+      "type": "html",
+      "id": "shipping_detail",
+      "label": "Shipping note"
     }
   ]
 }

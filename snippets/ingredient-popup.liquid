@@ -2,8 +2,47 @@
   <a id="ingredients" href="#target"></a>
   <span style="display: none;">
    <span id="target">
-     {% assign page_content = section.settings.page %}
-     {{ pages[page_content].content }}
+     <div id="tab_english" class="ingredient_content active">
+       {% if product.metafields["global"]["PrdIngredientEng"] != blank %}
+       {{ product.metafields["global"]["PrdIngredientEng"] }}
+       {% else %}
+       {% assign page_content = section.settings.page %}
+       {{ pages[page_content].content }}
+       {% endif %}
+     </div>
+     <div id="tab_spanish" class="ingredient_content">
+       {% if product.metafields["global"]["PrdIngredientSpanish"] != blank %}
+       {{ product.metafields["global"]["PrdIngredientSpanish"] }}
+       {% endif %}
+     </div>
+     <div id="tab_french" class="ingredient_content">
+       {% if product.metafields["global"]["PrdIngredientFrench"] != blank %}
+       {{ product.metafields["global"]["PrdIngredientFrench"] }}
+       {% endif %}
+     </div>
+     <div id="tab_german" class="ingredient_content">
+       {% if product.metafields["global"]["PrdIngredientGerman"] != blank %}
+       {{ product.metafields["global"]["PrdIngredientGerman"] }}
+       {% endif %}
+     </div>
+
+     <div class="ingredient_links">
+       <ul>
+         <li><a href="#" data-target="tab_english" class="active">English</a></li>
+
+         {% if product.metafields["global"]["PrdIngredientSpanish"] != blank %}
+         <li><a href="#" data-target="tab_spanish">Spanish</a></li>
+         {% endif %}
+
+         {% if product.metafields["global"]["PrdIngredientFrench"] != blank %}
+         <li><a href="#" data-target="tab_french">French</a></li>
+         {% endif %}
+
+         {% if product.metafields["global"]["PrdIngredientGerman"] != blank %}
+         <li><a href="#" data-target="tab_german">German</a></li>
+         {% endif %}
+       </ul>
+     </div>
     </span>
   </span>
 {% endif %}

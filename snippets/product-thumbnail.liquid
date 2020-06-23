@@ -31,6 +31,22 @@
       <div class="product_container {% if settings.collection_secondary_image != blank and product.images[1] != blank %}swap-{{ settings.collection_secondary_image }}{% else %}swap-false{% endif %}">
         <div class="image__container" style="{% if settings.align_height %} max-width: {{ product_set_width }}px; {% else %} max-width: {{- product.featured_image.width -}}px; {% endif %}">
           <div class="reveal">
+            {% if product.metafields["global"]["FeaturedImage"] != blank %}
+            {% assign image = product.metafields["global"]["FeaturedImage"] %}
+            <img  src="{{ image }}"
+                  alt="{{ image.alt }}"
+                  data-src="{{ image }}"
+                  class="lazyload lazyload--fade-in"
+                  data-sizes="auto"
+                  data-srcset=" {{ image }} 2048w,
+                                {{ image }} 1600w,
+                                {{ image }} 1200w,
+                                {{ image }} 1000w,
+                                {{ image }} 800w,
+                                {{ image }} 600w,
+                                {{ image }} 400w"
+                   />
+            {% else %}
           <img  src="{{ product.featured_image | product_img_url: '600x' }}"
                 alt="{{ alt_text | escape }}"
                 style="{{ align_height_value }}"
@@ -44,10 +60,22 @@
                         {{ product.featured_image | product_img_url: '600x' }} 600w,
                         {{ product.featured_image | product_img_url: '400x' }} 400w"
               />
+              {% endif %}
             <div class="hidden">
               <div class="caption">
-                <div class="centered">
-                  <p class="product-title">{{ product.title }}</p>
+                <div class="centered {% if product.title == 'PERSONALIZED DISCOVERY SET' or product.title == 'DISCOVERY SET' %}long-title{% endif %}">
+                  <p class="product-title">
+                    {% if product.metafields["global"]["alt_title"] != blank %}
+                    {{ product.metafields["global"]["alt_title"] }}
+                    {% else %}
+                    {{ product.title }}
+                    {% endif %}
+                  </p>
+                  {% if product.metafields["global"]["BadgeText"] != blank %}
+                  <div class="product-badge-text">
+                    {{ product.metafields["global"]["BadgeText"] }}
+                  </div>
+                  {% endif %}
                 </div>
               </div>
             </div>
