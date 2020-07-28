@@ -29,33 +29,27 @@
         <div class="eight columns relative  image_column {% if layout == 'left' %}alpha animate_left{% else %}omega animate_right{% endif %}">
           <div class="my_play_btn"></div>
           {% if section.settings.button_link != blank %}
-          <span class=" right_bottom_btn">
-          <a href="{% if section.settings.button_link != blank %}{{ section.settings.button_link }}{% else %}#{% endif %}"><img src="https://cdn.shopify.com/s/files/1/0158/2484/6912/files/right.jpg">
-          </a>
-          </span>
+            <span class=" right_bottom_btn">
+              <a href="{% if section.settings.button_link != blank %}{{ section.settings.button_link }}{% else %}#{% endif %}"><img src="https://cdn.shopify.com/s/files/1/0158/2484/6912/files/right.jpg">
+              </a>
+            </span>
           {% endif %}
 
           {% if image != blank %}
-            <img  src="{{ image | img_url: '300x' }}"
-                  alt="{{ image.alt }}"
-                  data-src="{{ image | img_url: '2048x' }}"
-                  class="lazyload lazyload--fade-in my_video_open_section"
-                  data-sizes="auto"
-                  data-srcset=" {{ image | img_url: '2048x' }} 2048w,
-                                {{ image | img_url: '1600x' }} 1600w,
-                                {{ image | img_url: '1200x' }} 1200w,
-                                {{ image | img_url: '1000x' }} 1000w,
-                                {{ image | img_url: '800x' }} 800w,
-                                {{ image | img_url: '600x' }} 600w,
-                                {{ image | img_url: '400x' }} 400w"
-                   />
+            <img src="{{ image | img_url: '300x' }}" alt="{{ image.alt }}" data-src="{{ image | img_url: '2048x' }}" class="lazyload lazyload--fade-in my_video_open_section" data-sizes="auto" data-srcset=" {{ image | img_url: '2048x' }} 2048w,
+                                                        {{ image | img_url: '1600x' }} 1600w,
+                                                        {{ image | img_url: '1200x' }} 1200w,
+                                                        {{ image | img_url: '1000x' }} 1000w,
+                                                        {{ image | img_url: '800x' }} 800w,
+                                                        {{ image | img_url: '600x' }} 600w,
+                                                        {{ image | img_url: '400x' }} 400w"/>
           {% else %}
             {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
           {% endif %}
 
-          <div class="video-wrapper"> <span class="close_menu_tag_video">X</span>
-            <iframe width="420" height="345" src="{{ video }}?rel=0" frameborder="0" allow="autoplay">
-            </iframe>
+          <div class="video-wrapper">
+            <span class="close_menu_tag_video">X</span>
+            <iframe width="420" height="345" src="{{ video }}?rel=0" frameborder="0" allow="autoplay"></iframe>
           </div>
         </div>
       {% endcapture %}
@@ -74,12 +68,12 @@
           {{ text }}
         {% endif %}
         {% if description != blank %}
-        <div class="description">
-          {{ description }}
-        </div>
+          <div class="description">
+            {{ description }}
+          </div>
         {% endif %}
         {% if button_label != blank %}
-          <a {% if button_link != blank %}href="{{ button_link }}"{% endif %} class="button secondary">
+          <a {% if button_link != blank %} href="{{ button_link }}" {% endif %} class="button secondary">
             {{ button_label | escape }}
           </a>
         {% endif %}

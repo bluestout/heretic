@@ -2447,26 +2447,63 @@ jQuery(document).ready(function(){
 
     });
 });
+
+var aboutBlockMessageMore = {
+  'home-sec': "For those seeking something different, we're here to disrupt the status quo. In a category of our own, Heretic has surpassed all industry standards of clean by handcrafting fragrances from 100% naturally derived ingredients rather than synthetic ones. Blended in organic sugarcane alcohol, these real botanical materials go far beyond 'clean' — bringing the wild beauty and functional benefits of nature to each of our fragrances.",
+  'aboout-sec1': "Heretic surpasses all industry standards of clean by handcrafting fragrances from 100% naturally derived ingredients such as essential oils, concretes and absolutes. These real botanical materials go far beyond simply non-toxic, bringing the vibrancy and wild beauty of nature to each of our fragrances. We’re on a mission to create dynamic and complex fragrances that show the provocative side of nature, the dirty side of clean. These natural fragrances have a raw beauty that gives them authenticity and incredible sensuality. Our plant-based perfumes are blended in organic non-GMO sugarcane alcohol, then bottled and packaged in small batches in our Los Angeles studio. ",
+  'aboout-sec2': "We call ourselves Heretics because we’ve chosen to disrupt the status quo and do something different. Working with 100% naturally derived ingredients, we create non-gendered fragrances that are free from synthetics, vegan, and never tested on animals. These real botanical ingredients are much more expensive for us, but we think it’s worth it because nothing quite compares to the real thing. We believe in radical transparency, always disclosing each and every ingredient to you because we believe you deserve to know exactly what you’re putting on your skin.",
+  'aboout-sec3': "We’ve combined conventional perfumery with the Ayurvedic healing properties of natural extracts to create truly functional fragrances inspired by ancient traditions. Our fragrances harness the therapeutic aromatherapy benefits of the powerful plant materials they contain, such as the calming effects of CBD and jasmine or the uplifting properties of real citrus oils.",
+}
+
+var aboutBlockMessageLess = {
+  'home-sec': "For those seeking something different, we're here to disrupt the status quo...",
+  'aboout-sec1': "Heretic surpasses all industry standards of clean by handcrafting fragrances...",
+  'aboout-sec2': "We call ourselves Heretics because we’ve chosen to disrupt the status quo ...",
+  'aboout-sec3': "We’ve combined conventional perfumery with the Ayurvedic healing properties of natural...",
+}
+
+
 jQuery(document).ready(function(){
 	jQuery(document).on("click",".about_less_button",function(event){
 		event.preventDefault();
-    jQuery(this).parent().find(".full_text").hide();
+    
+    var sectionBlock = $(this).closest('[data-section]').attr('class');
+
+    if ( sectionBlock !== undefined ) {
+      jQuery(this).parent().find("p").text(aboutBlockMessageLess[sectionBlock]);
+      jQuery(this).text('READ ALL');
+    } else {
+      jQuery(this).parent().find("p").text(aboutBlockMessageLess['home-sec']);
+      jQuery(this).text('LEARN MORE');
+    }
+    
     jQuery(this).parent().find(".excerpts").show();
 		jQuery(this).addClass("about_read_button");
 		jQuery(this).removeClass("about_less_button");
-		jQuery(this).text('READ ALL');
-    });
+		});
 });
+
 jQuery(document).ready(function(){
 	jQuery(document).on("click",".about_read_button",function(event){
 		event.preventDefault();
-		jQuery(this).parent().find(".full_text").show();
+
+    var sectionBlock = $(this).closest('[data-section]').attr('class');
+
+    if ( sectionBlock !== undefined ) {
+      jQuery(this).parent().find("p").text(aboutBlockMessageMore[sectionBlock]);
+      jQuery(this).text("READ LESS");
+    } else {
+      jQuery(this).parent().find("p").text(aboutBlockMessageMore['home-sec']);
+      jQuery(this).text("LEARN LESS");
+    }
+    
     jQuery(this).parent().find(".excerpts").hide();
 		jQuery(this).addClass("about_less_button");
 		jQuery(this).removeClass("about_read_button");
-		jQuery(this).text("HIDE");
-    });
+		});
 });
+
+
 jQuery(document).ready(function($){
 	jQuery(document).on("click",".page-film img.my_video_open_section",function(e){
 		jQuery(this).addClass('my_video_section');
